@@ -1,0 +1,216 @@
+/*
+	DAYMODE - A bleached theme adaptation for on-the-fly switching
+    Add following JS (or something like this):
+
+(function () {
+    'use strict';
+
+    const $html = $('html');
+    const template = `<li id="menu-item-skin"><a>${l10nStrings.uiBarNightMode || 'Day mode'}</a></li>`;
+
+    let isOn;
+
+    if (storage.has('dayMode')) {
+        isOn = storage.get('dayMode');
+    } else if ('dayMode' in State.variables) {
+        isOn = State.variables.dayMode;
+    }
+
+    const $button = jQuery(template)
+        .ariaClick(() => {
+            $html.toggleClass('daymode');
+            isOn = !isOn;
+            storage.set('dayMode', isOn);
+        });
+
+    $button.appendTo('#menu-core');
+
+    if (isOn) {
+        $html.addClass('daymode');
+    }
+}());
+*/
+.daymode body {
+    color: #111;
+    background-color: #fff;
+}
+.daymode a {
+    color: #35c;
+}
+.daymode a:hover {
+    color: #57e;
+}
+.daymode span.link-disabled {
+    color: #777;
+}
+.daymode button {
+    color: #111;
+    background-color: #acf;
+    border-color: #8ad;
+}
+.daymode button:hover {
+    background-color: #8ad;
+    border-color: #68b;
+}
+.daymode button:disabled {
+    background-color: #ccc;
+    border-color: #aaa;
+}
+.daymode input,
+.daymode select,
+.daymode textarea {
+    color: #111;
+    border-color: #ccc;
+}
+.daymode input:focus,
+.daymode select:focus,
+.daymode textarea:focus,
+.daymode input:hover,
+.daymode select:hover,
+.daymode textarea:hover {
+    background-color: #eee;
+    border-color: #111;
+}
+.daymode hr {
+    border-color: #111;
+}
+
+.daymode .error {
+    background-color: #eaa;
+    border-left-color: #d77;
+}
+
+.daymode #ui-bar {
+    background-color: #eee;
+    border-color: #ccc;
+}
+.daymode #ui-bar hr {
+    border-color: #ccc;
+}
+.daymode #ui-bar-toggle,
+.daymode #ui-bar-history [id|="history"] {
+    color: #111;
+    border-color: #ccc;
+}
+.daymode #ui-bar-toggle:hover,
+.daymode #ui-bar-history [id|="history"]:hover {
+    background-color: #ccc;
+    border-color: #111;
+}
+.daymode #ui-bar-history [id|="history"]:disabled {
+    color: #ccc;
+    background-color: transparent;
+    border-color: #ccc;
+}
+.daymode #menu ul {
+    border-color: #ccc;
+}
+.daymode #menu li:not(:first-child) {
+    border-top-color: #ccc;
+}
+.daymode #menu li a {
+    color: #111;
+}
+.daymode #menu li a:hover {
+    background-color: #ccc;
+    border-color: #111;
+}
+
+/* Default dialog styling */
+.daymode #ui-overlay {
+    background-color: #777;
+}
+.daymode #ui-dialog-titlebar {
+    background-color: #ccc;
+}
+.daymode #ui-dialog-close:hover {
+    background-color: #b44;
+    border-color: #a33;
+}
+.daymode #ui-dialog-body {
+    background-color: #fff;
+    border-color: #ccc;
+}
+.daymode #ui-dialog-body hr {
+    background-color: #ccc;
+}
+
+/* List-based dialog styling */
+.daymode #ui-dialog-body.list li:not(:first-child) {
+    border-top-color: #ccc;
+}
+.daymode #ui-dialog-body.list li a {
+    color: #111;
+}
+.daymode .daymode #ui-dialog-body.list li a:hover {
+    background-color: #ccc;
+    border-color: #111;
+}
+
+/* Saves dialog styling */
+.daymode #ui-dialog-body.saves > *:not(:first-child),
+.daymode #ui-dialog-body.saves tr:not(:first-child) {
+    border-top-color: #ccc;
+}
+.daymode #ui-dialog-body.saves .empty {
+    color: #777;
+}
+
+/* Settings dialog styling */
+.daymode #ui-dialog-body.settings button[id|="setting-control"] {
+    color: #111;
+    border-color: #ccc;
+}
+.daymode #ui-dialog-body.settings button[id|="setting-control"]:hover {
+    background-color: #eee;
+    border-color: #111;
+}
+.daymode #ui-dialog-body.settings button[id|="setting-control"].enabled {
+    background-color: #9e9;
+    border-color: #7c7;
+}
+.daymode #ui-dialog-body.settings button[id|="setting-control"].enabled:hover {
+    background-color: #7c7;
+    border-color: #5a5;
+}
+
+/* Debug view styling */
+html.daymode :not(.debug-view) #debug-view-toggle {
+    color: #111;
+    border-color: #ccc;
+}
+html.daymode :not(.debug-view) #debug-view-toggle:hover {
+    background-color: #eee;
+    border-color: #111;
+}
+html.daymode .debug-view #debug-view-toggle {
+    background-color: #9e9;
+    border-color: #7c7;
+}
+html.daymode .debug-view #debug-view-toggle:hover {
+    background-color: #7c7;
+    border-color: #5a5;
+}
+html.daymode .debug-view .debug {
+    background-color: #dc9;
+}
+html.daymode .debug-view .debug.hidden,
+html.daymode .debug-view .debug.hidden .debug {
+    background-color: #bbb;
+}
+
+/* Style menu item to have "moon" icon */
+#menu-core #menu-item-skin a::before {
+    font-family: tme-fa-icons, fantasy;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    speak: none;
+
+    content: '\e800\00a0';
+}
+.daymode #menu-core #menu-item-skin a::before {
+    content: '\e801\00a0';
+}
