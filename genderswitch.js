@@ -1,6 +1,6 @@
 (function() {
     // usage:
-    // My name is <<genderswitch isFemale "Mary" "John">> Watson.
+    // My name is <<genderswitch $isFemale "Mary" "John">> Watson.
     // ...
     // Your father says: My dear <<gender "daughter" "son">>!
     'use strict';
@@ -29,7 +29,6 @@
     }
 
     Macro.add('genderswitch', {
-        tags: null,
         handler () {
             let varName = null;
             if (this.args.length && this.args[0] === undefined) {
@@ -37,7 +36,7 @@
                 this.args.shift();
             }
 
-            const layout = getLayout(args[1], args[2]);
+            const layout = getLayout(this.args[1], this.args[2]);
             const link = insertElement(this.output, 'a');
 
             link.innerHTML = layout;
@@ -51,8 +50,7 @@
         }
     });
 
-    Macro.add('genderswitch', {
-        tags: null,
+    Macro.add('gender', {
         handler () {
             const layout = getLayout(this.args[0], this.args[1]);
             const wrapper = insertElement(this.output, 'span');

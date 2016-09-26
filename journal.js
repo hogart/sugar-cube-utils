@@ -26,7 +26,7 @@
      */
     'use strict';
 
-    /* globals version, State, Macro, Wikifier */
+    /* globals version, variables, Macro, Wikifier */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<journal*>> macros family requires SugarCube 2.0 or greater, aborting load');
@@ -39,11 +39,11 @@
         let type = args[1] || '';
 
         if (name.startsWith('$')) {
-            name = State.variables[name.slice(1)];
+            name = store[name.slice(1)];
         }
 
         if (type.startsWith('$')) {
-            type = State.variables[type.slice(1)];
+            type = store[type.slice(1)];
         }
 
         if (!store[type]) {
@@ -60,7 +60,6 @@
             const entry = this.payload[0].contents.trim();
 
             store[type][name] ? store[type][name].push(entry) : store[type][name] = [entry];
-            this.output.textContent = '';
         }
     });
 
@@ -74,8 +73,6 @@
             } else {
                 store[type][name] = [this.payload[0].contents];
             }
-
-            this.output.textContent = '';
         }
     });
 

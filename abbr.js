@@ -52,12 +52,12 @@
     jQuery('head').append(`<style type="text/css">${styles}</style>`);
 
     Macro.add('abbr', {
-        tags: null,
         handler () {
             const abbr = insertElement(this.output, 'abbr');
             abbr.classList.add(clsPrefix);
-            abbr.dataset.title = args[1];
-            abbr.innerHTML = args[0];
+
+            abbr.innerHTML = this.args[0];
+            abbr.dataset.title = this.args[1];
         }
     });
 }());
