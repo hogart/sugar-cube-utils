@@ -1,0 +1,9 @@
+#menu-core [id^="menu-item"] a::before {
+    font-family: tme-fa-icons, fantasy;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    speak: none;
+}
