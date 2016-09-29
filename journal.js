@@ -26,28 +26,30 @@
      */
     'use strict';
 
-    /* globals version, variables, Macro, Wikifier */
+    /* globals version, State, Macro, Wikifier */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<journal*>> macros family requires SugarCube 2.0 or greater, aborting load');
     }
 
-    const store = State.variables.journal || (State.variables.journal = {});
+    if (!State.variables.journal) {
+        State.variables.journal = {};
+    }
 
     function ensureNameType(args) {
         let name = args[0] || '';
         let type = args[1] || '';
 
         if (name.startsWith('$')) {
-            name = store[name.slice(1)];
+            name = State.variables.journal[name.slice(1)];
         }
 
         if (type.startsWith('$')) {
-            type = store[type.slice(1)];
+            type = State.variables.journal[type.slice(1)];
         }
 
-        if (!store[type]) {
-            store[type] = {};
+        if (!State.variables.journal[type]) {
+            State.variables.journal[type] = {};
         }
 
         return {name, type};
@@ -59,7 +61,11 @@
             const {name, type} = ensureNameType(this.args);
             const entry = this.payload[0].contents.trim();
 
-            store[type][name] ? store[type][name].push(entry) : store[type][name] = [entry];
+            if (!State.variables.journal[type][name]) {
+                State.variables.journal[type][name] = [];
+            }
+
+            State.variables.journal[type][name].push(entry);
         }
     });
 
@@ -69,9 +75,9 @@
             const {name, type} = ensureNameType(this.args);
 
             if (this.args.length === 3 && this.args[2] === true) {
-                store[type][name] = [];
+                State.variables.journal[type][name] = [];
             } else {
-                store[type][name] = [this.payload[0].contents];
+                State.variables.journal[type][name] = [this.payload[0].contents];
             }
         }
     });
@@ -86,7 +92,7 @@
             const {name, type} = ensureNameType(this.args);
 
             const title = getTitle(this.payload);
-            const entries = store[type][name];
+            const entries = State.variables.journal[type][name];
 
             if (entries && entries.length) {
                 const out = `${title}${entries.join('\n')}`;
