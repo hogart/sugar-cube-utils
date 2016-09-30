@@ -16,8 +16,8 @@
         warningNoWebStorage   : '{_warningIntroLacking} (Web Storage API) {_warningOutroDegraded}',
         warningDegraded       : '{_warningIntroLacking} (требуемые этой игрой) {_warningOutroDegraded}',
 
-        debugViewTitle  : 'Окно отладки',
-        debugViewToggle : 'Открыть/закрыть окно отладки',
+        debugViewTitle  : 'Режим отладки',
+        debugViewToggle : 'Переключить режим отладки',
 
         uiBarToggle   : 'Открыть/закрыть панель навигации',
         uiBarBackward : 'Назад по истории {identity}',
