@@ -7,18 +7,18 @@
         throw new Error('<<abbr>> macro requires SugarCube 2.0 or greater, aborting load');
     }
 
-    version.extensions.macro = {major: 1, minor: 0, revision: 0};
+    version.extensions.macro = {major: 1, minor: 1, revision: 0};
 
     const clsPrefix = 'abbr-macro';
 
     const styles = `
-        ${clsPrefix} {
+        .${clsPrefix} {
             position: relative;
             display: inline-block;
             cursor: pointer;
             border-bottom: 1px dotted;
         }
-        ${clsPrefix}::before {
+        .${clsPrefix}::before {
             content: attr(data-title);
             position: absolute;
             top: 100%;
@@ -32,17 +32,17 @@
             border-color: #444;
             transition: 150ms linear all; 
         }
-        ${clsPrefix}:active::before,
-        ${clsPrefix}:hover::before {
+        .${clsPrefix}:active::before,
+        .${clsPrefix}:hover::before {
             pointer-events: auto;
             opacity: 1;
             transition: 150ms linear all; 
         }
-        ${clsPrefix}::before {
+        .${clsPrefix}::before {
             color: #eee;
             background-color: #111;
         }
-        html.daymode ${clsPrefix}::before { /* remove this if you're not using daymode */
+        html.daymode .${clsPrefix}::before { /* remove this if you're not using daymode */
             color: #111;
             background-color: #fff;
             border-color: #ccc;
