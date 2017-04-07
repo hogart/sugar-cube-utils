@@ -55,7 +55,7 @@
         shareTitle : 'Поделиться',
 
         autoloadTitle  : 'Автосохранение',
-        autoloadCancel : 'Начать с начала',
+        autoloadCancel : 'Начать заново',
         autoloadOk     : 'Загрузить сохранение',
         autoloadPrompt : 'Найдено автосохранение. Загрузить его или начать с начала?',
 
