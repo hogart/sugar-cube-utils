@@ -2,7 +2,9 @@
     // see daymode.css
     'use strict';
 
-    const $html = $('html');
+    /* globals storage, State, jQuery, l10nStrings */
+
+    const $html = jQuery('html');
     const template = `<li id="menu-item-skin"><a>${l10nStrings.uiBarNightMode || 'Day mode'}</a></li>`;
 
     let isOn;
