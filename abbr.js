@@ -7,23 +7,24 @@
         throw new Error('<<abbr>> macro requires SugarCube 2.0 or greater, aborting load');
     }
 
-    version.extensions.macro = {major: 1, minor: 1, revision: 0};
+    version.extensions.abbr = {major: 1, minor: 2, revision: 0};
 
     const clsPrefix = 'abbr-macro';
 
     const styles = `
         .${clsPrefix} {
             position: relative;
-            display: inline-block;
+            display: inline;
             cursor: pointer;
             border-bottom: 1px dotted;
         }
         .${clsPrefix}::before {
             content: attr(data-title);
             position: absolute;
+            display: table;
             top: 100%;
             left: 0;
-            width: 12em;
+            max-width: 25vw;
             padding: 0.3em;
             font-size: 90%;
             pointer-events: none;
