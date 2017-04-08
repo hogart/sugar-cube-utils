@@ -12,19 +12,12 @@
     }
 
     const styleId = 'menu-item-about';
-    const styles = `#menu-core #${styleId} a::before {
-    font-family: tme-fa-icons, fantasy;
-    font-style: normal;
-    font-weight: 400;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    speak: none;
-
+    const styles = `
+#menu-core #${styleId} a::before {
     content: '\\e809\\00a0';
 }`;
 
-    jQuery('head').append(`<style type="text/css" id="${styleId}">${styles}</style>`);
+    jQuery('head').append(`<style type="text/css" id="${styleId}-style">${styles}</style>`);
 
     const title = l10nStrings.uiBarAbout || 'About';
     const buttonTemplate = `<li id="${styleId}"><a>${title}</a></li>`;
