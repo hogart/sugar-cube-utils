@@ -1,0 +1,8 @@
+{
+  "name": "sugar-cube-utils",
+  "description": "Macros and goodies for SugarCube 2",
+  "version": "1.0.0",
+  "author": "Konstantin Kitmanov <me@kitmanov.name>",
+  "license": "MIT",
+  "repository": "git@github.com:hogart/sugar-cube-utils.git"
+}
