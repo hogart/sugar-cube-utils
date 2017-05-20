@@ -14,7 +14,7 @@
         _warningIntroLacking  : 'Приносим извинения! В вашем браузере отсутствуют либо выключены необходимые функции',
         _warningOutroDegraded : ', так что включен ограниченный режим. Вы можете продолжать, но кое-что может работать некорректно.',
         warningNoWebStorage   : '{_warningIntroLacking} (Web Storage API){_warningOutroDegraded}',
-        warningDegraded       : '{_warningIntroLacking} (необходимые для {game}){_warningOutroDegraded}',
+        warningDegraded       : '{_warningIntroLacking} (необходимые для {identity}){_warningOutroDegraded}',
 
         debugViewTitle  : 'Режим отладки',
         debugViewToggle : 'Переключить режим отладки',
