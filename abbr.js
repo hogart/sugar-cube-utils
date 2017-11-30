@@ -7,7 +7,7 @@
         throw new Error('<<abbr>> macro requires SugarCube 2.0 or greater, aborting load');
     }
 
-    version.extensions.abbr = {major: 1, minor: 2, revision: 0};
+    version.extensions.abbr = {major: 1, minor: 2, revision: 1};
 
     const clsPrefix = 'abbr-macro';
 
@@ -39,7 +39,7 @@
             transition: 150ms linear all; 
         }
         /* to avoid setting bg color manually */
-        #story, #passages, .passage, .${clsPrefix}, .${clsPrefix}::before {
+        #story, #passages, .passage, .passage *, .passage * .${clsPrefix}, .${clsPrefix}::before {
             background-color: inherit;
         }`;
 
@@ -47,7 +47,7 @@
 
     Macro.add('abbr', {
         handler () {
-            const abr = jQuery(`<abbr class="${clsPrefix}" data-title="${this.args[1]}">${this.args[0]}</abbr>`)
+            const abr = jQuery(`<abbr class="${clsPrefix}" data-title="${this.args[1]}">${this.args[0]}</abbr>`);
             abr.appendTo(this.output);
         }
     });
