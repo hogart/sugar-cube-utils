@@ -1,34 +1,17 @@
 (function () {
     'use strict';
+    // requires menuButton.js
+    //
     // Adds "About" button to UI Bar -- great for things like credits
     // * doesn't show up unless passage named StoryAbout exists
     // * opens dialog with the same title and contents filled from StoryAbout passage
     // * change l10nStrings.uiBarAbout to change both button and dialog title
 
-    /* globals Story, Dialog, jQuery, l10nStrings */
+    /* globals Story, scUtils, l10nStrings */
 
     if (!Story.has('StoryAbout')) {
         return;
     }
 
-    const styleId = 'menu-item-about';
-    const styles = `
-#menu-core #${styleId} a::before {
-    content: '\\e809\\00a0';
-}`;
-
-    jQuery('head').append(`<style type="text/css" id="${styleId}-style">${styles}</style>`);
-
-    const title = l10nStrings.uiBarAbout || 'About';
-    const buttonTemplate = `<li id="${styleId}"><a>${title}</a></li>`;
-
-    const $button = jQuery(buttonTemplate);
-    $button.appendTo('#menu-core');
-    $button.ariaClick(() => {
-        const content = Story.get('StoryAbout').processText();
-
-        Dialog.setup(title);
-        Dialog.wiki(content);
-        Dialog.open();
-    });
+    scUtils.createPassageButton(l10nStrings.uiBarAbout || 'About', '\\e809\\00a0', 'StoryAbout');
 }());

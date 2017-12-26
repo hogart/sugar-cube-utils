@@ -1,11 +1,15 @@
 (function () {
     // see daymode.css
+    //
+    // requires menuButton.js
+    //
+    // Adds 'day/night mode toggle button to menu dock'
+
     'use strict';
 
-    /* globals storage, State, jQuery, l10nStrings */
+    /* globals storage, State, jQuery, l10nStrings, scUtils */
 
     const $html = jQuery('html');
-    const template = `<li id="menu-item-skin"><a>${l10nStrings.uiBarNightMode || 'Day mode'}</a></li>`;
 
     let isOn;
 
@@ -15,16 +19,15 @@
         isOn = State.variables.dayMode;
     }
 
-    const $button = jQuery(template)
-        .ariaClick(() => {
-            $html.toggleClass('daymode');
-            isOn = !isOn;
-            storage.set('dayMode', isOn);
-        });
-
-    $button.appendTo('#menu-core');
+    function handler() {
+        $html.toggleClass('daymode');
+        isOn = !isOn;
+        storage.set('dayMode', isOn);
+    }
 
     if (isOn) {
         $html.addClass('daymode');
     }
+
+    scUtils.createHandlerButton(l10nStrings.uiBarNightMode || 'Day mode', '', 'skin', handler);
 }());

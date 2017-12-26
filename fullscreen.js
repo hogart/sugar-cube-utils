@@ -1,10 +1,12 @@
 (function () {
     'use strict';
 
+    // requires menuButton.js
+    //
     // fullscreen API is a pain at the moment
     // https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
 
-    /* globals jQuery, l10nStrings */
+    /* globals jQuery, l10nStrings, scUtils */
 
     // each vendor has it's spelling, so we can't just iterate prefixes
     const isFullScreenEnabled = document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled;
@@ -41,7 +43,16 @@
 
     const selector = vendorSelectorsMap[requestFullScreenFn.name];
 
-    const styleId = 'menu-item-fullscreen';
+    function handler() {
+        if (isFullScreen(document)) {
+            exitFullScreen();
+        } else {
+            requestFullScreen();
+        }
+    }
+
+    const {style} = scUtils.createHandlerButton(l10nStrings.uiFullScreen || 'Full screen', '', 'fullscreen', handler);
+    const styleId = style.attr('id').replace(/-style$/, '');
     const styles = `
 #menu-core #${styleId} a::before {
     content: '\\e830\\00a0';
@@ -65,22 +76,5 @@ html:${selector} {
 }
 `;
 
-    jQuery('head').append(`<style type="text/css" id="${styleId}-style">${styles}</style>`);
-
-
-    // create button, place it, and add behavior
-    const title = l10nStrings.uiFullScreen || 'Full screen';
-    const buttonTemplate = `<li id="${styleId}"><a>${title}</a></li>`;
-
-    const $button = jQuery(buttonTemplate)
-        .ariaClick(() => {
-            if (isFullScreen(document)) {
-                exitFullScreen();
-            } else {
-                requestFullScreen();
-            }
-        });
-
-    $button.appendTo('#menu-core');
-
+    style.text(styles);
 }());
