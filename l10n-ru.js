@@ -1,5 +1,5 @@
 (function () {
-    l10nStrings = {
+    window.l10nStrings = l10nStrings = {
         identity : 'игры',
         aborting : 'Идет отмена',
         cancel   : 'Отменить',

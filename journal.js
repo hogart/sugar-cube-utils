@@ -1,4 +1,5 @@
-(function() {
+/* globals SugarCube */
+(function(SugarCube) {
     /**
      * <<journaladd "Santa Claus" "characters">>Lives on North Pole (this is journal entry content)<</journaladd>>
      * <<journaladd "Santa Claus" "characters">>Has 4 reindeers<</journaladd>>
@@ -26,7 +27,7 @@
      */
     'use strict';
 
-    /* globals version, State, Macro, Wikifier */
+    const {version, State, Macro, Wikifier} = SugarCube;
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<journal*>> macros family requires SugarCube 2.0 or greater, aborting load');
@@ -103,4 +104,4 @@
             }
         }
     });
-}());
+}(SugarCube.version ? SugarCube : {version, State, Macro, Wikifier}));

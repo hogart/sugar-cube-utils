@@ -1,7 +1,9 @@
-(function() {
+/* globals SugarCube, jQuery */
+(function(SugarCube) {
     // usage: <<abbr "text" "long explanation">>
     'use strict';
-    /* globals version, Macro, jQuery */
+
+    const {version, Macro} = SugarCube;
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<abbr>> macro requires SugarCube 2.0 or greater, aborting load');
@@ -51,4 +53,5 @@
             abr.appendTo(this.output);
         }
     });
-}());
+    console.log(Macro.has('abbr'));
+}(SugarCube.version ? SugarCube : {version, Macro}));

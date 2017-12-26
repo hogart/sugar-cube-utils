@@ -1,10 +1,12 @@
-(function() {
+/* globals SugarCube, jQuery */
+(function(SugarCube) {
     // usage:
     // My name is <<genderswitch $isFemale "Mary" "John">> Watson.
     // ...
     // Your father says: My dear <<gender "daughter" "son">>!
     'use strict';
-    /* globals version, Macro, jQuery, State */
+
+    const {version, State, Macro} = SugarCube;
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<gender*>> macros family requires SugarCube 2.0 or greater, aborting load');
@@ -64,4 +66,4 @@
             wrapper.appendTo(this.output);
         }
     });
-}());
+}(SugarCube.version ? SugarCube : {version, State, Macro}));

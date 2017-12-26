@@ -1,7 +1,8 @@
-(function () {
+/* globals SugarCube, jQuery, scUtils */
+(function (SugarCube) {
     'use strict';
 
-    /* globals Story, visitedTags, Config, jQuery, scUtils */
+    const {Story, visitedTags, Config} = SugarCube;
 
     class LocationFinder {
         constructor() {
@@ -77,4 +78,4 @@
         }
     );
 
-}());
+}(SugarCube.Story ? SugarCube : {Story, visitedTags, Config}));

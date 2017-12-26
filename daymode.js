@@ -1,4 +1,5 @@
-(function () {
+/* globals SugarCube, jQuery, l10nStrings, scUtils */
+(function (SugarCube) {
     // see daymode.css
     //
     // requires menuButton.js
@@ -7,7 +8,7 @@
 
     'use strict';
 
-    /* globals storage, State, jQuery, l10nStrings, scUtils */
+    const {storage, State} = SugarCube;
 
     const $html = jQuery('html');
 
@@ -30,4 +31,4 @@
     }
 
     scUtils.createHandlerButton(l10nStrings.uiBarNightMode || 'Day mode', '', 'skin', handler);
-}());
+}(SugarCube.storage ? SugarCube : {storage, State}));

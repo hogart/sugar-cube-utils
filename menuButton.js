@@ -1,4 +1,5 @@
-(function () {
+/* globals SugarCube, jQuery */
+(function (SugarCube) {
     'use strict';
 
     // Utility functions to create buttons in dock menu.
@@ -6,7 +7,7 @@
     // scUtils.createHandlerButton creates button which calls given handler.
     // Both methods return {button, style} objects with jQuery-wrapped references to created elements
 
-    /* globals Story, Dialog, jQuery */
+    const {Story, Dialog} = SugarCube;
 
     // save some DOM references for later use
     const $head = jQuery('head');
@@ -83,4 +84,4 @@
             createHandlerButton,
         }
     );
-}());
+}(SugarCube.Story ? SugarCube : {Story, Dialog}));

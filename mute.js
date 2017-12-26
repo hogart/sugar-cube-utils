@@ -1,18 +1,19 @@
-(function () {
+/* globals jQuery, SugarCube, l10nStrings, scUtils */
+(function (SugarCube) {
     // requires menuButton.js
     //
     // Adds 'mute' toggle button to menu dock'
 
     'use strict';
 
-    /* globals jQuery, storage, SugarCube, l10nStrings, scUtils */
+    const {SimpleAudio} = SugarCube;
 
     const $html = jQuery('html');
 
     function handler() {
         $html.toggleClass('mute');
 
-        SugarCube.SimpleAudio.mute = !SugarCube.SimpleAudio.mute;
+        SimpleAudio.mute = !SimpleAudio.mute;
     }
 
     const { style } = scUtils.createHandlerButton(l10nStrings.uiBarMute || 'Sound', '\\e843\\00a0', 'mute', handler);
@@ -27,4 +28,4 @@
         }
     `);
 
-}());
+}(SugarCube.SimpleAudio ? SugarCube : {SimpleAudio}));
