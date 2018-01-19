@@ -47,7 +47,6 @@
 
             const $input = jQuery(`<input type="checkbox" ${State.variables[varName] ? 'checked' : ''}/>`);
             $input.on('change', () => {
-                console.log($input.prop('checked'));
                 State.variables[varName] = $input.prop('checked');
             });
 
