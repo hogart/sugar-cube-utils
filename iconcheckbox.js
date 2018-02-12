@@ -48,15 +48,30 @@
 
             varName = varName.substring(1);
 
+            let onChange = null;
+            if (args[3]) {
+                if (typeof args[3] === 'function') {
+                    onChange = args[3];
+                } else if (typeof args[3] === 'string' && window[args[3]]) {
+                    onChange = window[args[3]];
+                }
+            }
+
+
             const $span = jQuery('<span></span>');
             const $input = jQuery(`<input type="checkbox" ${State.variables[varName] ? 'checked' : ''}/>`);
             $input.on('change', () => {
-                State.variables[varName] = $input.prop('checked');
+                const value = $input.prop('checked');
+                State.variables[varName] = value;
                 $span.html(getLabel());
+
+                if (onChange) {
+                    onChange(value);
+                }
             });
 
             function getLabel() {
-                if (args.length === 3) {
+                if (args.length >= 3) {
                     return State.variables[varName] ? args[1] : args[2];
                 } else {
                     return payload[0].contents;
