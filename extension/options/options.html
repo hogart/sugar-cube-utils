@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+
+    <style>
+        body {
+            min-width: 800px;
+        }
+
+        form fieldset {
+            border: 1px solid grey;
+            border-radius: 3px;
+            margin-bottom: 1ex;
+        }
+
+        form label {
+            display: block;
+        }
+
+        label input[type="checkbox"] {
+            margin-right: .5em;
+        }
+
+        dl dt {
+            font-weight: bold;
+        }
+
+        details {
+            margin-bottom: 1em;
+        }
+
+        summary {
+            font-size: 120%;
+            font-weight: bold;
+            opacity: 0.8;
+        }
+
+        summary:hover {
+            opacity: 1;
+        }
+
+        summary:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <form class="js-optionsForm">
+        <label>
+            <input type="checkbox" name="shortcutButtons"/> Enable shortcut buttons
+        </label>
+        <label>
+            <input type="checkbox" name="wideEditors"/> Always wide editors and search field
+        </label>
+        <label>
+            <input type="checkbox" name="neatPassages"/> "Neat" passages
+        </label>
+
+        <input type="submit" value="Save settings"/>
+    </form>
+
+    <script src="../syncOptions.js"></script>
+    <script src="./options.js"></script>
+</body>
+</html>

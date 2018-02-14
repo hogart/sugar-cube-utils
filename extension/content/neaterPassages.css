@@ -1,0 +1,11 @@
+.neatPassages #storyEditView .passage {
+    padding: 2px;
+}
+
+.neatPassages #storyEditView .passage .frame {
+    font-size: 75%
+}
+
+.neatPassages #storyEditView .passage .frame .excerpt {
+    color: darkgray;
+}
