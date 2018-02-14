@@ -7,10 +7,8 @@
 
     /* globals jQuery, storage, SugarCube, l10nStrings, scUtils */
 
-    const $html = jQuery('html');
-
     function handler() {
-        $html.toggleClass('mute');
+        document.documentElement.classList.toggle('mute');
 
         SugarCube.SimpleAudio.mute = !SugarCube.SimpleAudio.mute;
     }
