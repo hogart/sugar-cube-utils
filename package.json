@@ -4,5 +4,10 @@
   "version": "1.0.0",
   "author": "Konstantin Kitmanov <me@kitmanov.name>",
   "license": "MIT",
-  "repository": "git@github.com:hogart/sugar-cube-utils.git"
+  "repository": "git@github.com:hogart/sugar-cube-utils.git",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-minify": "^0.3.0"
+  }
 }
