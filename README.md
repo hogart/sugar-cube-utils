@@ -1,8 +1,6 @@
 # Collection of [SugarCube 2](http://www.motoslave.net/sugarcube/2/) macros and goodies
 
-How to use: copy-paste file contents into your story's JavaScript / Stylesheet editor, or use SugarCube's `[importScripts](http://www.motoslave.net/sugarcube/2/docs/functions.html#importscripts)` / `[importStyles](http://www.motoslave.net/sugarcube/2/docs/functions.html#importstyles)`. They all intended to be flexible in use and hackable if need be. Or install whole thing as npm package to build highly customized solutions. Or just download entire repo.
-
-Most code uses pretty modern JS language features, so it won't work in IE (even 11), Opera <= 12.x, UC Browser, older Safaris, old Android Browser (Chrome for Android is fine though) etc, but should run in browsers released last year or two. We're working to resolve this limitations.
+Please note that code will not work in older browsers as-is. See [Using the code](#using-the-code) section below.
 
 ## Macros
 
@@ -118,6 +116,20 @@ qbn.unset('island', 'pleasant acquaintance');
 qbn.inc('madness', 12); // time to eat your crew yet?
 qbn.dec('madness', 5); // qbn.length('madness') === 7
 ```
+
+## Using the code
+
+Code in the repo uses pretty new JS language features and as-is will work only in fresh Chrome and FF and latest Safari. This is fine if you're wrapping your game in NW.js or Electron or during debug stages, but may be unacceptable for web distribution. To remedy that, use `bin/build.js` script like so:
+```sh
+node bin/build.js --es6 abbr about faint genderswitch
+```
+
+This will create `./bundle.js` combining transpiled `abbr.js`, `about.js` `faint.js` and `genderswitch.js` files. Additionally you can produce minified version adding `--compress` option:
+```sh
+node bin/build.js --es6 --compress abbr about faint genderswitch
+```
+
+By default code will be transpiled to support same browsers as SugarCube. If you don't have node.js installed, you can transpile code [online](http://babeljs.io/repl/).
 
 ## MIT License
 Copyright 2017-2018 Konstantin Kitmanov.
