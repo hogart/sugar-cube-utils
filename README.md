@@ -76,10 +76,11 @@ Game can consist of different locations. Suppose you want to change some styles 
 
 `scUtils.LocationFinder` partially solves this issue. 
 0. Tag passages where player enters new locations with `locationName-desert` and`locationOrder-0`, `locationName-forest` and`locationOrder-1`, and so on. `locationOrder-` should have numbers according to how player supposed to move through story.
-0. Call `window.finder = new scUtils.LocationFinder()` in `StoryInit` or in game JavaScript.
-0. Call `var _newLocation = window.finder.detectLocation()` to get location name anytime you need.
+0. Call `window.finder = new scUtils.LocationFinder(onChange, passageEvents)` in `StoryInit` or in game JavaScript. 
+`onChange` is optional handler which will be called each time location changes, and is passed `newLocation` and `oldLocation` arguments.
+`passageEvents` is optional object, mapping [passage events](http://www.motoslave.net/sugarcube/2/docs/passage-events-task-objects.html#passage-events) to handlers (`{':passagestart'(location, event) { console.log(location) }}`). Each handler will receive current location as first argument and original event as second.
 
-Unfortunately, at the moment LocationFinder won't properly work in open-world games where players can freely move back and forth and back again.
+Same location name can be used several times throughout the story, but each time it should have different `locationOrder-` tag. Unfortunately, at the moment LocationFinder won't properly work in open-world games where players can freely move back and forth and back again.
 
 ### mute.js (relies on menuButton.js)
 

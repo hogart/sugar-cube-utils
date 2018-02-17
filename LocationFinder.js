@@ -1,10 +1,10 @@
 (function () {
     'use strict';
 
-    /* globals Story, visitedTags, Config, scUtils */
+    /* globals Story, visitedTags, Config, jQuery, scUtils */
 
     class LocationFinder {
-        constructor() {
+        constructor(onChange = null, eventHandlers = null) {
             this.markers = [];
 
             // we don't really do lookUp, but it's the only way to iterate over all passages
@@ -21,9 +21,42 @@
             });
 
             if (Config.debug) {
-                console.info(`Locations detected:
-                ${this.markers.map((marker) => `${marker.order}: ${marker.name}`).join('\n')}`);
+                console.info(
+                    `Locations detected:
+                    ${this.markers.map((marker) => `${marker.order}: ${marker.name}`).join('\n')}`
+                );
             }
+
+            this.latestLocation = this.detectLocation();
+
+            const $doc = jQuery(document);
+
+            if (onChange) {
+                this._attachOnChange($doc, onChange);
+            }
+
+            if (eventHandlers) {
+                this._processHandlers($doc, eventHandlers);
+            }
+        }
+
+        _processHandlers($doc, eventHandlers) {
+            Object.keys(eventHandlers).forEach((eventName) => {
+                $doc.on(eventName, (event) => {
+                    eventHandlers[eventName](this.detectLocation(), event);
+                })
+            });
+        }
+
+        _attachOnChange($doc, onChange) {
+            $doc.on(':passagestart', () => {
+                const newLocation = this.detectLocation();
+
+                if (newLocation !== this.latestLocation) {
+                    onChange(newLocation, this.latestLocation);
+                    this.latestLocation = newLocation;
+                };
+            });
         }
 
         /**
