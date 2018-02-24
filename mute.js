@@ -1,16 +1,24 @@
 (function () {
     // requires menuButton.js
     //
-    // Adds 'mute' toggle button to menu dock'
+    // Adds 'mute' toggle button to UI Bar
 
     'use strict';
 
     /* globals jQuery, storage, SugarCube, l10nStrings, scUtils */
 
-    function handler() {
-        document.documentElement.classList.toggle('mute');
+    let mute = localStorage.getItem('mute') === 'true';
 
-        SugarCube.SimpleAudio.mute = !SugarCube.SimpleAudio.mute;
+    function renderMute() {
+        localStorage.setItem('mute', mute.toString());
+        document.documentElement.classList.toggle('mute', mute);
+        jQuery.wiki(`<<masteraudio ${mute ? 'mute' : 'unmute'}>>`); // use engine API instead of undocumented access
+    }
+
+    function handler() {
+        mute = !mute;
+
+        renderMute();
     }
 
     const { style } = scUtils.createHandlerButton(l10nStrings.uiBarMute || 'Sound', '\\e843\\00a0', 'mute', handler);
@@ -25,4 +33,5 @@
         }
     `);
 
+    renderMute();
 }());
