@@ -4,7 +4,7 @@
     /* globals Story, visitedTags, Config, jQuery, scUtils */
 
     class LocationFinder {
-        constructor(onChange = null, eventHandlers = null) {
+        constructor(onChange = null, classNamePrefix = 'location-', eventHandlers = null) {
             this.markers = [];
 
             // we don't really do lookUp, but it's the only way to iterate over all passages
@@ -29,34 +29,56 @@
 
             this.latestLocation = this.detectLocation();
 
-            const $doc = jQuery(document);
+            this.$doc = jQuery(document);
 
-            if (onChange) {
-                this._attachOnChange($doc, onChange);
-            }
+            this.onChange = onChange;
+            this.classNamePrefix = classNamePrefix;
+
+            this._listenPassageStart();
 
             if (eventHandlers) {
-                this._processHandlers($doc, eventHandlers);
+                this._processHandlers(eventHandlers);
             }
+
+            this._toggleHtmlClass(this.latestLocation);
         }
 
-        _processHandlers($doc, eventHandlers) {
+        _processHandlers(eventHandlers) {
             Object.keys(eventHandlers).forEach((eventName) => {
-                $doc.on(eventName, (event) => {
+                this.$doc.on(eventName, (event) => {
                     eventHandlers[eventName](this.detectLocation(), event);
                 })
             });
         }
 
-        _attachOnChange($doc, onChange) {
-            $doc.on(':passagestart', () => {
+        _onChange(newLocation, oldLocation) {
+            if (Config.debug) {
+                console.info(`Location "${oldLocation}" changed to "${newLocation}"`);
+            }
+
+            if (this.onChange) {
+                this.onChange(newLocation, oldLocation);
+            }
+
+            this._toggleHtmlClass(newLocation, oldLocation);
+        }
+
+        _listenPassageStart() {
+            this.$doc.on(':passagestart', () => {
                 const newLocation = this.detectLocation();
 
                 if (newLocation !== this.latestLocation) {
-                    onChange(newLocation, this.latestLocation);
+                    this._onChange(newLocation, this.latestLocation);
                     this.latestLocation = newLocation;
                 };
             });
+        }
+
+        _toggleHtmlClass(newLocation, oldLocation) {
+            if (this.classNamePrefix) {
+                document.documentElement.classList.remove(this.classNamePrefix + oldLocation);
+                document.documentElement.classList.add(this.classNamePrefix + newLocation);
+            }
         }
 
         /**

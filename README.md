@@ -74,13 +74,14 @@ Adds "Full screen" button switch to UIBar (if browser supports this API). Suppos
 
 Game can consist of different locations. Suppose you want to change some styles and switch background music depending on whether player is in dungeon, forest or desert. Using vanilla SugarCube you'll need to assign designated tag to every passage in each location (and 100 passages is not a very big game). Now add music to equation and remember that player can save/load and use checkpoints. 
 
-`scUtils.LocationFinder` partially solves this issue. 
-0. Tag passages where player enters new locations with `locationName-desert` and`locationOrder-0`, `locationName-forest` and`locationOrder-1`, and so on. `locationOrder-` should have numbers according to how player supposed to move through story.
-0. Call `window.finder = new scUtils.LocationFinder(onChange, passageEvents)` in `StoryInit` or in game JavaScript. 
-`onChange` is optional handler which will be called each time location changes, and is passed `newLocation` and `oldLocation` arguments.
-`passageEvents` is optional object, mapping [passage events](http://www.motoslave.net/sugarcube/2/docs/passage-events-task-objects.html#passage-events) to handlers (`{':passagestart'(location, event) { console.log(location) }}`). Each handler will receive current location as first argument and original event as second.
+`scUtils.LocationFinder` tries to solve this issue. 
+0. Tag passages where player enters new locations with `locationName-desert` and `locationOrder-0`, `locationName-forest` and `locationOrder-1`, and so on. `locationOrder-` should have numbers according to how player supposed to move through story.
+0. Call `window.finder = new scUtils.LocationFinder(onChange, 'location-', passageEvents)` in `StoryInit` or in game JavaScript.
+    0. `onChange` is optional handler which will be called each time location changes, and is passed `newLocation` and `oldLocation` arguments. You can pass `null` if you don't need this.
+    0. `'location-'` is optional prefix to CSS class which will be assigned to `html` according to current location. If you don't need this behavior, pass `null` instead.
+    0. `passageEvents` is optional object, mapping [passage events](http://www.motoslave.net/sugarcube/2/docs/passage-events-task-objects.html#passage-events) to handlers (`{':passagestart'(location, event) { console.log(location) }}`). Each handler will receive current location as first argument and original event as second, so you can do some pretty advanced stuff in there.
 
-Same location name can be used several times throughout the story, but each time it should have different `locationOrder-` tag. Unfortunately, at the moment LocationFinder won't properly work in open-world games where players can freely move back and forth and back again.
+Same location name can be used several times throughout the story, but each time it should have different `locationOrder-` tag. Unfortunately, at the moment LocationFinder won't properly work in non-linear, open-world games where player can freely move around some map.
 
 ### mute.js (relies on menuButton.js)
 
