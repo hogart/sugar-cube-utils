@@ -25,6 +25,7 @@
             display: table;
             top: 100%;
             left: 0;
+            z-index: 10;
             max-width: 25vw;
             padding: 0.3em;
             font-size: 90%;
