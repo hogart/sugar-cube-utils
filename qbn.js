@@ -1,6 +1,8 @@
 (function() {
     'use strict';
 
+    /* globals State */
+
     /**
      * Simple quality-based quest tracker. Usage:
      *
@@ -11,8 +13,8 @@
      * qbn.unset('house', 'ground floor');
      */
 
-    const qualities = new Map();
-    const increments = new Map();
+    State.variables.qbnQualities = State.variables.qbnQualities || new Map();
+    State.variables.qbnIncrements = State.variables.qbnIncrements || new Map();
 
     function addValuesToSet(set, values) {
         values.forEach((value) => set.add(value))
@@ -20,10 +22,10 @@
 
     window.qbn = {
         set(qualityName, values) {
-            let set = qualities.get(qualityName);
+            let set = State.variables.qbnQualities.get(qualityName);
             if (!set) {
                 set = new Set();
-                qualities.set(qualityName, set);
+                State.variables.qbnQualities.set(qualityName, set);
             }
 
             if (Array.isArray(values)) {
@@ -34,7 +36,7 @@
         },
 
         unset(qualityName, values) {
-            const set = qualities.get(qualityName);
+            const set = State.variables.qbnQualities.get(qualityName);
 
             if (set) {
                 if (Array.isArray(values)) {
@@ -46,7 +48,7 @@
         },
 
         has(qualityName, values) {
-            const set = qualities.get(qualityName);
+            const set = State.variables.qbnQualities.get(qualityName);
             if (!set) {
                 return false;
             } else {
@@ -64,36 +66,36 @@
         },
 
         inc(qualityName, amount = 1) {
-            let counter = increments.get(qualityName) || 0;
+            let counter = State.variables.qbnIncrements.get(qualityName) || 0;
 
             counter += amount;
 
-            increments.set(qualityName, counter);
+            State.variables.qbnIncrements.set(qualityName, counter);
         },
 
         dec(qualityName, amount = 1) {
-            let counter = increments.get(qualityName) || 0;
+            let counter = State.variables.qbnIncrements.get(qualityName) || 0;
 
             counter -= amount;
 
-            increments.set(qualityName, counter);
+            State.variables.qbnIncrements.set(qualityName, counter);
         },
 
         length(qualityName) {
-            const set = qualities.get(qualityName);
-            const increment = increments.get(qualityName) || 0;
+            const set = State.variables.qbnQualities.get(qualityName);
+            const increment = State.variables.qbnIncrements.get(qualityName) || 0;
             const setSize = set ? set.size : 0;
 
             return setSize + increment;
         },
 
         clear(qualityName) {
-            const set = qualities.get(qualityName);
+            const set = State.variables.qbnQualities.get(qualityName);
             if (set) {
                 set.clear();
             }
 
-            increments.set(qualityName, 0);
+            State.variables.qbnIncrements.set(qualityName, 0);
         },
     };
 }());
