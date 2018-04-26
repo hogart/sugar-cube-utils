@@ -38,12 +38,11 @@
 
     Macro.add('genderswitch', {
         handler () {
-            let varName = null;
-            if (this.args.length && this.args[0] === undefined) {
-                varName = this.args.full.split(' ', 1)[0].replace(/^State\.variables\./, '');
-                this.args.shift();
+            if (this.args.full.length === 0) {
+                return this.error('no variable and values specified');
             }
 
+            const varName = this.args.full.split(' ')[0].replace(/^State\.variables\./, '');
             const layout = getLayout(this.args[1], this.args[2]);
             const link = jQuery(`<a class="${clsPrefix}switch-macro">${layout}</a>`);
 
