@@ -17,20 +17,20 @@
         visibility: hidden;
         opacity: 0;
         transition: 1s linear;
-        transition-property: opacity visibility;
+        transition-property: opacity, visibility;
     }
     .${clsPrefix}.open {
         visibility: visible;
         opacity: 1;
         transition: 1s linear;
-        transition-property: opacity visibility;
+        transition-property: opacity, visibility;
     }
     
-    body.${clsPrefix}-blur {
+    html.${clsPrefix}-blur {
         filter: blur(10px);
         transition: 1s filter linear;
     }
-    body:not(.${clsPrefix}-blur) {
+    html:not(.${clsPrefix}-blur) {
         filter: blur(0px);
         transition: 1s filter linear;
     }
@@ -39,14 +39,20 @@
     jQuery(`<style type="text/css" id="${clsPrefix}-style">${styles}</style>`).appendTo('head');
 
     const body = jQuery('body');
+    const doc = jQuery('html');
     const overlay = jQuery(`<div class="${clsPrefix}"></div>`);
     overlay.appendTo(body);
+
+    function comeTo() {
+        overlay.removeClass('open');
+        doc.removeClass(`${clsPrefix}-blur`);
+    }
 
     function faint(callback = null, duration = 5, color = 'black', blur = true) {
         overlay.css({backgroundColor: color});
 
         if (blur) {
-            body.addClass(`${clsPrefix}-blur`);
+            doc.addClass(`${clsPrefix}-blur`);
         }
 
         overlay.addClass('open');
@@ -54,9 +60,11 @@
         setTimeout(() => {
             if (callback) {
                 callback();
+                setTimeout(comeTo, 100); // make a small delay to let callback finish
+            } else {
+                comeTo();
             }
-            overlay.removeClass('open');
-            body.removeClass(`${clsPrefix}-blur`);
+
         }, duration * 1000);
     }
 
