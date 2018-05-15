@@ -16,6 +16,21 @@
     State.variables.qbnQualities = State.variables.qbnQualities || new Map();
     State.variables.qbnIncrements = State.variables.qbnIncrements || new Map();
 
+    const watchers = new Map();
+
+    function callWatchers(qualityName) {
+        const watchers = watchers.get(qualityName);
+        if (watchers) {
+            watchers.forEach((watcher) => {
+                try {
+                    watcher(qualityName)
+                } catch (e) {
+                    console.error(e);
+                }
+            })
+        }
+    }
+
     function addValuesToSet(set, values) {
         values.forEach((value) => set.add(value))
     }
@@ -33,6 +48,8 @@
             } else {
                 set.add(values);
             }
+
+            callWatchers(qualityName);
         },
 
         unset(qualityName, values) {
@@ -44,6 +61,8 @@
                 } else {
                     set.delete(values);
                 }
+
+                callWatchers(qualityName);
             }
         },
 
@@ -71,6 +90,7 @@
             counter += amount;
 
             State.variables.qbnIncrements.set(qualityName, counter);
+            callWatchers(qualityName);
         },
 
         dec(qualityName, amount = 1) {
@@ -79,6 +99,7 @@
             counter -= amount;
 
             State.variables.qbnIncrements.set(qualityName, counter);
+            callWatchers(qualityName);
         },
 
         length(qualityName) {
@@ -96,6 +117,15 @@
             }
 
             State.variables.qbnIncrements.set(qualityName, 0);
+            callWatchers(qualityName);
+        },
+
+        addWatcher(qualityName, watcher) {
+            if (!watchers.has(qualityName)) {
+                watchers.set(qualityName, []);
+            }
+
+            watchers.get(qualityName).push(watcher);
         },
     };
 }());
