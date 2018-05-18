@@ -19,9 +19,9 @@
     const watchers = new Map();
 
     function callWatchers(qualityName) {
-        const watchers = watchers.get(qualityName);
-        if (watchers) {
-            watchers.forEach((watcher) => {
+        const watchersByName = watchers.get(qualityName);
+        if (watchersByName) {
+            watchersByName.forEach((watcher) => {
                 try {
                     watcher(qualityName)
                 } catch (e) {
