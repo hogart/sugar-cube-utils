@@ -2,7 +2,7 @@
     // container version of <<abbr>>
     // usage: <<more "tooltip">>content<</more>>
     'use strict';
-    /* globals version, Macro, jQuery */
+    /* globals version, Macro, jQuery, Wikifier */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<more>> macro requires SugarCube 2.0 or greater, aborting load');
@@ -53,6 +53,6 @@
             const more = jQuery(`<abbr class="${clsPrefix}" data-title="${this.args[0]}"></abbr>`);
             new Wikifier(more, this.payload[0].contents);
             more.appendTo(this.output);
-        }
+        },
     });
 }());

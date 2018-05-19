@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    /* globals Story, visitedTags, Config, jQuery, scUtils */
+    /* globals Story, visitedTags, Config, jQuery */
 
     class LocationFinder {
         constructor(onChange = null, classNamePrefix = 'location-', eventHandlers = null) {
@@ -47,7 +47,7 @@
             Object.keys(eventHandlers).forEach((eventName) => {
                 this.$doc.on(eventName, (event) => {
                     eventHandlers[eventName](this.detectLocation(), event);
-                })
+                });
             });
         }
 
@@ -111,13 +111,13 @@
                 const orderTag = tags.find(tag => tag.startsWith(LocationFinder.orderToken));
 
                 if (Config.debug && !orderTag) {
-                    console.warn(`Location "${name}" doesn't have explicit order.`)
+                    console.warn(`Location "${name}" doesn't have explicit order.`);
                 }
 
                 return {
                     name,
                     order: parseInt(orderTag.replace(LocationFinder.orderToken, ''), 10) || 0,
-                }
+                };
             }
         }
 

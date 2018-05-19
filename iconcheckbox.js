@@ -86,6 +86,6 @@
             $span.appendTo($label);
 
             $label.appendTo(this.output);
-        }
+        },
     });
 }());

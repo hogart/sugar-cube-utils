@@ -1,5 +1,7 @@
 (function () {
-    l10nStrings = {
+    'use strict';
+
+    l10nStrings = { // eslint-disable-line no-undef, no-global-assign
         identity : 'игры',
         aborting : 'Идет отмена',
         cancel   : 'Отменить',
@@ -60,6 +62,6 @@
         autoloadPrompt : 'Найдено автосохранение. Загрузить его или начать с начала?',
 
         macroBackText   : 'Назад',
-        macroReturnText : 'Вернуться'
-    }
+        macroReturnText : 'Вернуться',
+    };
 }());

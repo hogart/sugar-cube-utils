@@ -30,7 +30,7 @@
         return (amount) => {
             const plural = pluralize(amount, cases);
             return fmt(amount, plural);
-        }
+        };
     }
 
     window.scUtils = Object.assign(

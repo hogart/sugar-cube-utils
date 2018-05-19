@@ -5,7 +5,7 @@
 
     'use strict';
 
-    /* globals jQuery, storage, SugarCube, l10nStrings, scUtils */
+    /* globals jQuery, l10nStrings, scUtils */
 
     let mute = localStorage.getItem('mute') === 'true';
 

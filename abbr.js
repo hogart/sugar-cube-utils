@@ -50,6 +50,6 @@
         handler () {
             const abr = jQuery(`<abbr class="${clsPrefix}" data-title="${this.args[1]}">${this.args[0]}</abbr>`);
             abr.appendTo(this.output);
-        }
+        },
     });
 }());

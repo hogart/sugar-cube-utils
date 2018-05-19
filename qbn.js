@@ -23,16 +23,16 @@
         if (watchersByName) {
             watchersByName.forEach((watcher) => {
                 try {
-                    watcher(qualityName)
+                    watcher(qualityName);
                 } catch (e) {
                     console.error(e);
                 }
-            })
+            });
         }
     }
 
     function addValuesToSet(set, values) {
-        values.forEach((value) => set.add(value))
+        values.forEach((value) => set.add(value));
     }
 
     window.qbn = {

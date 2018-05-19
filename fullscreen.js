@@ -6,7 +6,7 @@
     // fullscreen API is a pain at the moment
     // https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
 
-    /* globals jQuery, l10nStrings, scUtils */
+    /* globals l10nStrings, scUtils */
 
     // each vendor has it's spelling, so we can't just iterate prefixes
     const isFullScreenEnabled = document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled;

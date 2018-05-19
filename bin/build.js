@@ -1,5 +1,5 @@
 'use strict';
-
+/* eslint-env node */
 const fs = require('fs');
 const path = require('path');
 const babel = require('babel-core');
@@ -47,7 +47,7 @@ function concat(files) {
 
         bundle = babel.transform(bundle, {
             presets,
-        })
+        });
     }
 
     fs.writeFileSync(path.resolve('./bundle.js'), bundle.code || bundle, {});

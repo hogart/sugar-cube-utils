@@ -16,7 +16,7 @@
     window.scUtils = Object.assign(
         window.scUtils || {},
         {
-            onPassagePresent
+            onPassagePresent,
         },
     );
 }());

@@ -53,7 +53,7 @@
                 html.classList.toggle(`${clsPrefix}-m`);
                 State.variables[varName] = html.classList.contains(`${clsPrefix}-f`);
             });
-        }
+        },
     });
 
     Macro.add('gender', {
@@ -61,6 +61,6 @@
             const layout = getLayout(this.args[0], this.args[1]);
             const wrapper = jQuery(`<span class="${clsPrefix}-macro">${layout}</span>`);
             wrapper.appendTo(this.output);
-        }
+        },
     });
 }());

@@ -19,7 +19,7 @@
         handler() {
             if (!navigator.vibrate) {
                 if (Config.debug) {
-                    console.warn('Vibration not supported, <<rumble>> will do nothing.')
+                    console.warn('Vibration not supported, <<rumble>> will do nothing.');
                 }
 
                 return;
@@ -39,6 +39,6 @@
                 const sequence = args.map((chunk) => parseInt(chunk.trim()));
                 navigator.vibrate(sequence);
             }
-        }
+        },
     });
 }());

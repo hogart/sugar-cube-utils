@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    /* globals jQuery, Engine */
+    /* globals jQuery */
     // requires onPassagePresent.js
 
     // Utility functions to manage inventory appearance.
@@ -33,6 +33,6 @@
         {
             pingInventory,
             hiliteInventory,
-        },
+        }
     );
 }());
