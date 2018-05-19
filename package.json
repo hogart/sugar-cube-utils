@@ -5,12 +5,16 @@
   "author": "Konstantin Kitmanov <me@kitmanov.name>",
   "license": "MIT",
   "repository": "git@github.com:hogart/sugar-cube-utils.git",
+  "scripts": {
+    "lint": "eslint ."
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.3",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-minify": "^0.3.0"
+    "babel-preset-minify": "^0.3.0",
+    "eslint": "^4.19.1"
   },
-
   "browserslist": [
     "> 1%, last 3 versions, last 10 Chrome versions, last 10 Firefox versions, IE >= 9, Opera >= 12"
   ]
