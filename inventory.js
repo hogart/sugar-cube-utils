@@ -28,11 +28,18 @@
         window.scUtils.onPassagePresent(() => pingInventory(className, timeout));
     }
 
+    function beaconInventory(className = 'ping-inventory', timeout = 3500, interval = 4000) {
+        return setInterval(() => {
+            hiliteInventory(className, timeout);
+        }, interval);
+    }
+
     window.scUtils = Object.assign(
         window.scUtils || {},
         {
             pingInventory,
             hiliteInventory,
+            beaconInventory,
         }
     );
 }());
