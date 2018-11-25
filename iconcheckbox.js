@@ -1,6 +1,6 @@
 (function() {
     // usage:
-    //  <<iconcheck $isSomething>>toggle value<</iconcheck>>
+    // <<iconcheck $isSomething>>toggle value<</iconcheck>>
     // <<iconcheck $isSomething "Turn on" "Turn off">><</iconcheck>>
     'use strict';
     /* globals version, Macro, jQuery, Wikifier, State */
@@ -14,6 +14,9 @@
     const clsPrefix = 'iconcheck';
 
     const styles = `
+        .${clsPrefix} {
+            cursor: pointer;
+        }
         .${clsPrefix} input {
             visibility: hidden;
         }
