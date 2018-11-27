@@ -9,12 +9,13 @@
      * qbn.set('house', 'ground floor');
      * qbn.set('house', ['basement']);
      * if (qbn.length('house') === 2) { alert('house fully explored') }
-     * qbn.set('house', 'ground floor'); // qbn.length('dungeon') still equals 2
+     * qbn.set('house', 'ground floor'); // qbn.length('house') still equals 2
      * qbn.unset('house', 'ground floor');
      */
 
-    State.variables.qbnQualities = State.variables.qbnQualities || new Map();
-    State.variables.qbnIncrements = State.variables.qbnIncrements || new Map();
+    console.log(State.variables.qbnQualities);
+    State.active.variables.qbnQualities = State.active.variables.qbnQualities || new Map();
+    State.active.variables.qbnIncrements = State.active.variables.qbnIncrements || new Map();
 
     const watchers = new Map();
 
