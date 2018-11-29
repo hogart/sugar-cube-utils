@@ -17,10 +17,10 @@
     State.active.variables.qbnQualities = State.active.variables.qbnQualities || new Map();
     State.active.variables.qbnIncrements = State.active.variables.qbnIncrements || new Map();
 
-    const watchers = new Map();
+    const watchers = Object.create(null);
 
     function callWatchers(qualityName) {
-        const watchersByName = watchers.get(qualityName);
+        const watchersByName = watchers[qualityName];
         if (watchersByName) {
             watchersByName.forEach((watcher) => {
                 try {
@@ -33,34 +33,38 @@
     }
 
     function addValuesToSet(set, values) {
-        values.forEach((value) => set.add(value));
+        values.forEach((value) => set[value] = true);
+    }
+
+    function clearSet(set) {
+        Object.keys(set).forEach(key => delete set[key]);
     }
 
     window.qbn = {
         set(qualityName, values) {
-            let set = State.variables.qbnQualities.get(qualityName);
+            let set = State.variables.qbnQualities[qualityName];
             if (!set) {
-                set = new Set();
-                State.variables.qbnQualities.set(qualityName, set);
+                set = Object.create(null);
+                State.variables.qbnQualities[qualityName] = set;
             }
 
             if (Array.isArray(values)) {
                 addValuesToSet(set, values);
             } else {
-                set.add(values);
+                set[values] = true;
             }
 
             callWatchers(qualityName);
         },
 
         unset(qualityName, values) {
-            const set = State.variables.qbnQualities.get(qualityName);
+            const set = State.variables.qbnQualities[qualityName];
 
             if (set) {
                 if (Array.isArray(values)) {
-                    values.forEach((value) => set.delete(value));
+                    values.forEach((value) => delete set[value]);
                 } else {
-                    set.delete(values);
+                    delete set[values];
                 }
 
                 callWatchers(qualityName);
@@ -68,65 +72,65 @@
         },
 
         has(qualityName, values) {
-            const set = State.variables.qbnQualities.get(qualityName);
+            const set = State.variables.qbnQualities[qualityName];
             if (!set) {
                 return false;
             } else {
                 if (Array.isArray(values)) {
                     for (const value of values.values()) {
-                        if (!set.has(value)) {
+                        if (!set[value]) {
                             return false;
                         }
                     }
                     return true;
                 } else {
-                    return set.has(values);
+                    return set[values];
                 }
             }
         },
 
         inc(qualityName, amount = 1) {
-            let counter = State.variables.qbnIncrements.get(qualityName) || 0;
+            let counter = State.variables.qbnIncrements[qualityName] || 0;
 
             counter += amount;
 
-            State.variables.qbnIncrements.set(qualityName, counter);
+            State.variables.qbnIncrements[qualityName] = counter;
             callWatchers(qualityName);
         },
 
         dec(qualityName, amount = 1) {
-            let counter = State.variables.qbnIncrements.get(qualityName) || 0;
+            let counter = State.variables.qbnIncrements[qualityName] || 0;
 
             counter -= amount;
 
-            State.variables.qbnIncrements.set(qualityName, counter);
+            State.variables.qbnIncrements[qualityName] = counter;
             callWatchers(qualityName);
         },
 
         length(qualityName) {
-            const set = State.variables.qbnQualities.get(qualityName);
-            const increment = State.variables.qbnIncrements.get(qualityName) || 0;
-            const setSize = set ? set.size : 0;
+            const set = State.variables.qbnQualities[qualityName];
+            const increment = State.variables.qbnIncrements[qualityName] || 0;
+            const setSize = set ? Object.keys(set).length : 0;
 
             return setSize + increment;
         },
 
         clear(qualityName) {
-            const set = State.variables.qbnQualities.get(qualityName);
+            const set = State.variables.qbnQualities[qualityName];
             if (set) {
-                set.clear();
+                clearSet(set);
             }
 
-            State.variables.qbnIncrements.set(qualityName, 0);
+            State.variables.qbnIncrements[qualityName] = 0;
             callWatchers(qualityName);
         },
 
         addWatcher(qualityName, watcher) {
-            if (!watchers.has(qualityName)) {
-                watchers.set(qualityName, []);
+            if (!watchers[qualityName]) {
+                watchers[qualityName] = [];
             }
 
-            watchers.get(qualityName).push(watcher);
+            watchers[qualityName].push(watcher);
         },
     };
 }());
