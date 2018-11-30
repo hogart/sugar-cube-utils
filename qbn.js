@@ -13,11 +13,10 @@
      * qbn.unset('house', 'ground floor');
      */
 
-    console.log(State.variables.qbnQualities);
-    State.active.variables.qbnQualities = State.active.variables.qbnQualities || new Map();
-    State.active.variables.qbnIncrements = State.active.variables.qbnIncrements || new Map();
+    State.active.variables.qbnQualities = State.active.variables.qbnQualities || {};
+    State.active.variables.qbnIncrements = State.active.variables.qbnIncrements || {};
 
-    const watchers = Object.create(null);
+    const watchers = {};
 
     function callWatchers(qualityName) {
         const watchersByName = watchers[qualityName];
@@ -42,10 +41,10 @@
 
     window.qbn = {
         set(qualityName, values) {
-            let set = State.variables.qbnQualities[qualityName];
+            let set = State.active.variables.qbnQualities[qualityName];
             if (!set) {
-                set = Object.create(null);
-                State.variables.qbnQualities[qualityName] = set;
+                set = {};
+                State.active.variables.qbnQualities[qualityName] = set;
             }
 
             if (Array.isArray(values)) {
@@ -58,7 +57,7 @@
         },
 
         unset(qualityName, values) {
-            const set = State.variables.qbnQualities[qualityName];
+            const set = State.active.variables.qbnQualities[qualityName];
 
             if (set) {
                 if (Array.isArray(values)) {
@@ -72,7 +71,7 @@
         },
 
         has(qualityName, values) {
-            const set = State.variables.qbnQualities[qualityName];
+            const set = State.active.variables.qbnQualities[qualityName];
             if (!set) {
                 return false;
             } else {
@@ -90,38 +89,38 @@
         },
 
         inc(qualityName, amount = 1) {
-            let counter = State.variables.qbnIncrements[qualityName] || 0;
+            let counter = State.active.variables.qbnIncrements[qualityName] || 0;
 
             counter += amount;
 
-            State.variables.qbnIncrements[qualityName] = counter;
+            State.active.variables.qbnIncrements[qualityName] = counter;
             callWatchers(qualityName);
         },
 
         dec(qualityName, amount = 1) {
-            let counter = State.variables.qbnIncrements[qualityName] || 0;
+            let counter = State.active.variables.qbnIncrements[qualityName] || 0;
 
             counter -= amount;
 
-            State.variables.qbnIncrements[qualityName] = counter;
+            State.active.variables.qbnIncrements[qualityName] = counter;
             callWatchers(qualityName);
         },
 
         length(qualityName) {
-            const set = State.variables.qbnQualities[qualityName];
-            const increment = State.variables.qbnIncrements[qualityName] || 0;
+            const set = State.active.variables.qbnQualities[qualityName];
+            const increment = State.active.variables.qbnIncrements[qualityName] || 0;
             const setSize = set ? Object.keys(set).length : 0;
 
             return setSize + increment;
         },
 
         clear(qualityName) {
-            const set = State.variables.qbnQualities[qualityName];
+            const set = State.active.variables.qbnQualities[qualityName];
             if (set) {
                 clearSet(set);
             }
 
-            State.variables.qbnIncrements[qualityName] = 0;
+            State.active.variables.qbnIncrements[qualityName] = 0;
             callWatchers(qualityName);
         },
 
