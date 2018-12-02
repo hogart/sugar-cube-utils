@@ -10,36 +10,60 @@
     // `js-inventory` class and open by assigning `open` class.
 
     const $body = jQuery('body');
+    const $doc = jQuery(document);
 
-    $body.on('click', '.js-toggleInventory', function (event) {
-        jQuery(event.target)
-            .closest('.js-inventory') // we need to get this element every time
-            .toggleClass('open');
-    });
+    const inventory = {
+        pingTimeout: 3500, // depends on how long animation is
+        beaconInterval: 4000,
+        pingClassName: 'ping-inventory',
 
-    function pingInventory(className, timeout) {
-        $body.addClass(className);
-        setTimeout(() => {
-            $body.removeClass(className);
-        }, timeout);
-    }
+        setup({pingTimeout = this.pingTimeout, beaconInterval = this.beaconInterval, pingClassName = this.pingClassName} = {}) {
+            Object.assign(this, {
+                pingTimeout,
+                beaconInterval,
+                pingClassName,
+            });
+        },
 
-    function hiliteInventory(className = 'ping-inventory', timeout = 3500) {
-        window.scUtils.onPassagePresent(() => pingInventory(className, timeout));
-    }
+        onInventoryClick(event) {
+            jQuery(event.target)
+                .closest('.js-inventory') // we need to get this element every time
+                .toggleClass('open');
+        },
 
-    function beaconInventory(className = 'ping-inventory', timeout = 3500, interval = 4000) {
-        return setInterval(() => {
-            hiliteInventory(className, timeout);
-        }, interval);
-    }
+        ping(className, timeout) {
+            $body.addClass(className);
+            setTimeout(() => {
+                $body.removeClass(className);
+            }, timeout);
+        },
+
+        hilite({className = this.pingClassName, timeout = this.pingTimeout} = {}) {
+            window.scUtils.onPassagePresent(() => {
+                this.ping(className, timeout);
+            });
+        },
+
+        beacon({className = this.pingClassName, timeout = this.pingTimeout, interval = this.beaconInterval} = {}) {
+            const intervalId = setInterval(() => {
+                this.hilite({className, timeout});
+            }, interval);
+
+            // stop beaconing when moved to another passage
+            $doc.on(':passagestart', () => {
+                clearInterval(intervalId);
+            });
+
+            return intervalId;
+        },
+    };
+
+    $body.on('click', '.js-toggleInventory', inventory.onInventoryClick);
 
     window.scUtils = Object.assign(
         window.scUtils || {},
         {
-            pingInventory,
-            hiliteInventory,
-            beaconInventory,
+            inventory,
         }
     );
 }());
