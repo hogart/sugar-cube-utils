@@ -9,8 +9,6 @@
 
     version.extensions.more = {major: 1, minor: 0, revision: 0};
 
-    'use strict';
-
     const clsPrefix = 'moremacro';
 
     class Tooltiper {
@@ -73,6 +71,7 @@
             this.el.style.top = position.top + pageYOffset + targetRect.height + 'px';
             this.el.style.left = position.left + pageXOffset + 'px';
 
+            this.container.appendChild(this.el);
             this.el.classList.add('visible');
         }
 
@@ -98,6 +97,7 @@
         hide() {
             if (this.el) {
                 this.el.classList.remove('visible');
+                this.el.remove();
             }
         }
 
@@ -123,19 +123,18 @@
             opacity: 0;
             background-color: inherit;
             border: 1px solid currentColor;
-            box-shadow: 0 1ex 1ex 2px;
             max-width: 90%;
             padding: 4px 10px;
             font-size: 90%;
             transition: opacity 150ms linear;
             pointer-events: auto;
         }
-        
+
         .${clsPrefix}.visible {
             opacity: 1;
             pointer-events: none;
         }
-        
+
         [data-${clsPrefix}] {
             border-bottom: 1px dotted currentColor;
             cursor: pointer;
