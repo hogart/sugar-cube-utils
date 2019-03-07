@@ -22,6 +22,32 @@
         return $button;
     }
 
+    function createMultiButton(id, labels, onClick) {
+        const buttonTemplate = `<li id="${id}" class="multiButton">${labels.map(label => `<a>${label}</a>`).join('')}</li>`;
+        const $button = jQuery(buttonTemplate);
+        $button.on('click', 'a', (event) => {
+            const index = jQuery(event.currentTarget).index();
+            onClick(event, index);
+        });
+
+        if (jQuery(`style#multi-button-style`).length === 0) {
+            const styles = `
+                .multiButton {
+                    display: flex;
+                }
+                .multiButton a {
+                    flex-grow: 1;
+                }`;
+
+            const $style = jQuery(`<style type="text/css" id="multi-button-style">${styles}</style>`);
+            $style.appendTo($head);
+        }
+
+        $button.appendTo($menuCore);
+
+        return {button: $button};
+    }
+
     function createButtonStyle(id, iconContent) {
         const styles = `
             #menu-core #${id} a::before {
@@ -81,6 +107,7 @@
         {
             createPassageButton,
             createHandlerButton,
+            createMultiButton,
         }
     );
 }());
