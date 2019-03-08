@@ -22,8 +22,14 @@
         return $button;
     }
 
-    function createMultiButton(id, labels, onClick) {
-        const buttonTemplate = `<li id="${id}" class="multiButton">${labels.map(label => `<a>${label}</a>`).join('')}</li>`;
+    function createMultiButton(id, mainLabel, labels, onClick) {
+        const buttonTemplate = `
+            <li id="${id}" class="multiButton">
+                ${mainLabel ? `<div class="mainLabel">${mainLabel}</div>` : ''}
+                <div class="buttons">
+                    ${labels.map(label => `<a>${label}</a>`).join('')}
+                </div>
+            </li>`;
         const $button = jQuery(buttonTemplate);
         $button.on('click', 'a', (event) => {
             const index = jQuery(event.currentTarget).index();
@@ -32,10 +38,13 @@
 
         if (jQuery(`style#multi-button-style`).length === 0) {
             const styles = `
-                .multiButton {
+                .multiButton .mainLabel {
+                    text-transform: uppercase;
+                }
+                .multiButton .buttons {
                     display: flex;
                 }
-                .multiButton a {
+                .multiButton .buttons a {
                     flex-grow: 1;
                 }`;
 
