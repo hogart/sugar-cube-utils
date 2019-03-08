@@ -3,69 +3,50 @@
 
     // requires menuButton.js
 
-    /* globals jQuery, scUtils */
+    /* globals scUtils */
 
-    const $story = jQuery('#story');
+    const $passages = document.querySelector('#passages');
 
-    function parseFontSize(str) {
-        const value = parseFloat(str);
-        const units = str.replace(/[\d.]/g, '');
-
-        return {value, units};
-    }
-
-    function saveFontSize({value, units}) {
-        localStorage.setItem('fontSize', `${value}${units}`);
+    function saveFontSize(value) {
+        localStorage.setItem('fontSize', value);
     }
 
     function loadFontSize() {
-        const loaded = localStorage.getItem('fontSize');
-        try {
-            let { value, units } = parseFontSize(loaded);
+        const loaded = localStorage.getItem('fontSize') || '100';
+        let value = parseInt(loaded);
 
-            if (!units || !value || isNaN(value)) {
-                return null;
-            } else {
-                return { value, units };
-            }
-        } catch (e) {
-            return null;
+        if (isNaN(value)) {
+            return 100;
+        } else {
+            return value
         }
     }
 
-    function extractFontSize() {
-        const extracted = window.getComputedStyle($story[0]).fontSize;
-
-        return parseFontSize(extracted);
-    }
-
-    function applyFontSize({value, units}) {
-        $story[0].style.fontSize = `${value}${units}`;
+    function applyFontSize(value) {
+        $passages.style.fontSize = `${value}%`;
     }
 
 
-    function createFontSizeBtn(interval = 0.2) {
+    function createFontSizeBtn(interval = 10, min = 60, max = 200) {
         let fs = loadFontSize();
-        let cssFs = extractFontSize();
 
-        if (fs === null) {
-            fs = cssFs;
-            saveFontSize(fs);
-        } else {
-            Object.assign(fs, cssFs);
+        if (fs !== 100) {
             applyFontSize(fs);
+            saveFontSize(fs)
         }
 
         const ops = {
             inc() {
-                fs.value += interval * cssFs.value;
+                fs += interval;
+                fs = Math.min(fs, max);
             },
             dec() {
-                fs.value -= interval * cssFs.value;
+                fs -= interval;
+                fs = Math.max(fs, min);
             }
         };
 
-        scUtils.createMultiButton('fontSize', ['-', '+'], (event, index) => {
+        scUtils.createMultiButton('fontSize', l10nStrings.uiFontSize || 'Font size', ['-', '+'], (event, index) => {
             ops[index === 0 ? 'dec' : 'inc']();
 
             applyFontSize(fs);
