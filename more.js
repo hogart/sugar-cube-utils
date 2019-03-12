@@ -128,6 +128,11 @@
             font-size: 90%;
             transition: opacity 150ms linear;
             pointer-events: auto;
+            box-shadow: 0px 0px 1em 0px;
+        }
+        
+        body #story, body #story .${clsPrefix} {
+            background-color: inherit;
         }
 
         .${clsPrefix}.visible {
