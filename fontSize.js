@@ -3,7 +3,7 @@
 
     // requires menuButton.js
 
-    /* globals scUtils */
+    /* globals scUtils, l10nStrings */
 
     const $passages = document.querySelector('#passages');
 
@@ -18,7 +18,7 @@
         if (isNaN(value)) {
             return 100;
         } else {
-            return value
+            return value;
         }
     }
 
@@ -32,7 +32,7 @@
 
         if (fs !== 100) {
             applyFontSize(fs);
-            saveFontSize(fs)
+            saveFontSize(fs);
         }
 
         const ops = {
@@ -43,7 +43,7 @@
             dec() {
                 fs -= interval;
                 fs = Math.max(fs, min);
-            }
+            },
         };
 
         scUtils.createMultiButton('fontSize', l10nStrings.uiFontSize || 'Font size', ['-', '+'], (event, index) => {

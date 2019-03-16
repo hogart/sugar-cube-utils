@@ -36,7 +36,7 @@
             onClick(event, index);
         });
 
-        if (jQuery(`style#multi-button-style`).length === 0) {
+        if (jQuery('style#multi-button-style').length === 0) {
             const styles = `
                 .multiButton .mainLabel {
                     text-transform: uppercase;
