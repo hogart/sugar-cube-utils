@@ -6,11 +6,11 @@
     /**
      * Simple quality-based quest tracker. Usage:
      *
-     * qbn.set('house', 'ground floor');
-     * qbn.set('house', ['basement']);
-     * if (qbn.length('house') === 2) { alert('house fully explored') }
-     * qbn.set('house', 'ground floor'); // qbn.length('house') still equals 2
-     * qbn.unset('house', 'ground floor');
+     * scUtils.qbn.set('house', 'ground floor');
+     * scUtils.qbn.set('house', ['basement']);
+     * if (scUtils.qbn.length('house') === 2) { alert('house fully explored') }
+     * scUtils.qbn.set('house', 'ground floor'); // scUtils.qbn.length('house') still equals 2
+     * scUtils.qbn.unset('house', 'ground floor');
      */
 
     State.active.variables.qbnQualities = State.active.variables.qbnQualities || {};
@@ -39,7 +39,7 @@
         Object.keys(set).forEach(key => delete set[key]);
     }
 
-    window.qbn = {
+    const qbn = {
         set(qualityName, values) {
             let set = State.active.variables.qbnQualities[qualityName];
             if (!set) {
@@ -132,4 +132,10 @@
             watchers[qualityName].push(watcher);
         },
     };
+
+    window.qbn = qbn;
+
+    window.scUtils = Object.assign(window.scUtils || {}, {
+        qbn,
+    });
 }());
