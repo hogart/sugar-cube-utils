@@ -15,7 +15,7 @@
          */
         static randomInt(max) {
             // return Math.floor(Math.random() * Math.floor(max));
-            return random(max - 1)
+            return random(max - 1);
         }
 
         randomIndex() {
