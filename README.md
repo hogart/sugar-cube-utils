@@ -8,14 +8,16 @@ Most macros include built-in styles created by JS so you can copy-paste one file
 
 ### `<<abbr "text" "tooltip content">>` and `<<more "tooltip content">>text<</more>>`
 
-Both macros do the same thing: show tooltip when user hovers or taps on underlined text. Both highlight text with dotted underline. The only difference is that `<<more>>` allows to put any SugarCube markup (conditions and formatting) inside.
+**NB: `<<abbr>>` is deprecated, use `<<more>>`.**
+
+`<<more>>` shows tooltip — on mouse hover on desktop and on tap on touch screen. It tries to contain tooltip entirely on the screen. `<<more>>` can include SugarCube code inside of it, but not in tooltip content.
 
 ### `<<gender>>` and `<<genderswitch>>`
 
 English grammar is pretty neutral when it comes to gender, but other languages are less forgiving. For instance, in Slavic languages you need to put adjectives and past tense verbs in proper grammatical gender.
 
 `<<genderswitch>>` displays link-like text which user can click to switch between genders:
-`My name is <<genderswitch $isFemale "Mary" "John">> Watson.`. Please note that you need to declare `$isFemale` variable before that (most probably in `StoryInit`).
+`My name is <<genderswitch $isFemale "Mary" "John">> Watson.`. Please note that you need to declare `$isFemale` variable in `StoryInit`.
 
 `<<gender>>` chooses text between female and male version: `Your father says: My dear <<gender "daughter" "son">>!`. `<<genderswitch>>` assigns `gender-f` and `gender-m` classes to `html` element, so `<<gender>>` displays changes reactively, and you can use these classes to further customise game look should you need that.
 
@@ -50,7 +52,7 @@ Most goodies/utils put functions into `window.scUtils` "namespace". Things that 
 
 ### `menuButton.js`
 
-Provide `scUtils.createPassageButton(label, iconContent, passageName)` and `scUtils.createHandlerButton(label, iconContent, shortName, handler)` functions. First create button which displays dialogue window displaying some passage content.
+Provide `scUtils.createPassageButton(label, iconContent, passageName)` and `scUtils.createHandlerButton(label, iconContent, shortName, handler)` functions. First one creates button which displays dialogue window displaying some passage content.
 
 ### `about.js` (relies on menuButton.js)
 
@@ -65,6 +67,10 @@ Depending on players reading habits, level of fatigue, device, environment and o
 Exposes `scUtils.faint(callback, duration, color, blur)` function, which fills screen with solid `color`, `blur`ring content at the same time and calls `callback` after `duration` seconds. Default values are `faint(callback = null, duration = 5, color = 'black', blur = true)`. Keep in mind that not all browsers support this blurring.
 
 Useful for emulating loosing conscience, teleportation, extended periods of time passing, etc.
+
+### fontsize.js
+
+Exposes `scUtils.createFontSizeBtn` function. When called this function creates buttons in sidebar to increase/decrease font size. To change button label, assign value to correspondent l10n key:`l10nStrings.uiFontSize = 'Zoom in/out'` (defaults to 'Font size').
 
 ### fullscreen.js (relies on menuButton.js)
 
@@ -121,7 +127,7 @@ qbn.dec('madness', 5); // qbn.length('madness') === 7
 
 ## Using the code
 
-Code in the repo uses pretty new JS language features and as-is will work only in fresh Chrome and FF and latest Safari. This is fine if you're wrapping your game in NW.js or Electron or during debug stages, but may be unacceptable for web distribution. To remedy that, use `bin/build.js` script like so:
+Code in the repo uses pretty new JS language features and as-is will work only in fresh Chrome and FF and latest Safari (last 2-3 years). This is fine if you're wrapping your game in NW.js or Electron or during debug stages, but may be unacceptable for web distribution. To remedy that, use `bin/build.js` script like so:
 ```sh
 node bin/build.js --es6 abbr about faint genderswitch
 ```
@@ -134,7 +140,7 @@ node bin/build.js --es6 --compress abbr about faint genderswitch
 By default code will be transpiled to support same browsers as SugarCube. If you don't have node.js installed, you can transpile code [online](http://babeljs.io/repl/).
 
 ## MIT License
-Copyright 2017-2018 Konstantin Kitmanov.
+Copyright 2017-2019 Konstantin Kitmanov.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
