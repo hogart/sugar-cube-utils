@@ -22,7 +22,7 @@
      * <<set $melike = "ice cream">>
      * <<journaldisplay>>Me<</journaldisplay>>
      *
-     * Internally, all entries are stored in `State.variables.journal`.
+     * Internally, all entries are stored in `State.active.variables.journal`.
      */
     'use strict';
 
@@ -32,8 +32,8 @@
         throw new Error('<<journal*>> macros family requires SugarCube 2.0 or greater, aborting load');
     }
 
-    if (!State.variables.journal) {
-        State.variables.journal = {};
+    if (!State.active.variables.journal) {
+        State.active.variables.journal = {};
     }
 
     function ensureNameType(args) {
@@ -41,15 +41,15 @@
         let type = args[1] || '';
 
         if (name.startsWith('$')) {
-            name = State.variables.journal[name.slice(1)];
+            name = State.active.variables.journal[name.slice(1)];
         }
 
         if (type.startsWith('$')) {
-            type = State.variables.journal[type.slice(1)];
+            type = State.active.variables.journal[type.slice(1)];
         }
 
-        if (!State.variables.journal[type]) {
-            State.variables.journal[type] = {};
+        if (!State.active.variables.journal[type]) {
+            State.active.variables.journal[type] = {};
         }
 
         return {name, type};
@@ -61,12 +61,12 @@
             const {name, type} = ensureNameType(this.args);
             const entry = this.payload[0].contents.trim();
 
-            if (!State.variables.journal[type][name]) {
-                State.variables.journal[type][name] = [];
+            if (!State.active.variables.journal[type][name]) {
+                State.active.variables.journal[type][name] = [];
             }
 
-            State.variables.journal[type][name].push(entry);
-        }
+            State.active.variables.journal[type][name].push(entry);
+        },
     });
 
     Macro.add('journalreplace', {
@@ -75,11 +75,11 @@
             const {name, type} = ensureNameType(this.args);
 
             if (this.args.length === 3 && this.args[2] === true) {
-                State.variables.journal[type][name] = [];
+                State.active.variables.journal[type][name] = [];
             } else {
-                State.variables.journal[type][name] = [this.payload[0].contents];
+                State.active.variables.journal[type][name] = [this.payload[0].contents];
             }
-        }
+        },
     });
 
     function getTitle(payload) {
@@ -92,7 +92,7 @@
             const {name, type} = ensureNameType(this.args);
 
             const title = getTitle(this.payload);
-            const entries = State.variables.journal[type][name];
+            const entries = State.active.variables.journal[type][name];
 
             if (entries && entries.length) {
                 const out = `${title}${entries.join('\n')}`;
@@ -101,6 +101,6 @@
             } else {
                 this.output.textContent = '';
             }
-        }
+        },
     });
 }());
