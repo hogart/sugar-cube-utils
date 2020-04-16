@@ -70,7 +70,7 @@
         return $style;
     }
 
-    function createDlgFromPassage(passageName, title) {
+    function createDlgFromPassage(passageName, title = passageName) {
         const content = Story.get(passageName).processText();
 
         Dialog.setup(title);
@@ -114,6 +114,7 @@
     window.scUtils = Object.assign(
         window.scUtils || {},
         {
+            createDlgFromPassage,
             createPassageButton,
             createHandlerButton,
             createMultiButton,
