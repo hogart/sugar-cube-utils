@@ -22,18 +22,18 @@
      * <<set $melike = "ice cream">>
      * <<journaldisplay>>Me<</journaldisplay>>
      *
-     * Internally, all entries are stored in `State.active.variables.journal`.
+     * Internally, all entries are stored in `State.variables.journal`.
      */
     'use strict';
 
-    /* globals version, State, Macro, Wikifier */
+    /* globals version, State, Macro, jQuery */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<journal*>> macros family requires SugarCube 2.0 or greater, aborting load');
     }
 
-    if (!State.active.variables.journal) {
-        State.active.variables.journal = {};
+    if (!State.variables.journal) {
+        State.variables.journal = {};
     }
 
     function ensureNameType(args) {
@@ -41,15 +41,15 @@
         let type = args[1] || '';
 
         if (name.startsWith('$')) {
-            name = State.active.variables.journal[name.slice(1)];
+            name = State.variables.journal[name.slice(1)];
         }
 
         if (type.startsWith('$')) {
-            type = State.active.variables.journal[type.slice(1)];
+            type = State.variables.journal[type.slice(1)];
         }
 
-        if (!State.active.variables.journal[type]) {
-            State.active.variables.journal[type] = {};
+        if (!State.variables.journal[type]) {
+            State.variables.journal[type] = {};
         }
 
         return {name, type};
@@ -61,11 +61,11 @@
             const {name, type} = ensureNameType(this.args);
             const entry = this.payload[0].contents.trim();
 
-            if (!State.active.variables.journal[type][name]) {
-                State.active.variables.journal[type][name] = [];
+            if (!State.variables.journal[type][name]) {
+                State.variables.journal[type][name] = [];
             }
 
-            State.active.variables.journal[type][name].push(entry);
+            State.variables.journal[type][name].push(entry);
         },
     });
 
@@ -75,15 +75,20 @@
             const {name, type} = ensureNameType(this.args);
 
             if (this.args.length === 3 && this.args[2] === true) {
-                State.active.variables.journal[type][name] = [];
+                State.variables.journal[type][name] = [];
             } else {
-                State.active.variables.journal[type][name] = [this.payload[0].contents];
+                State.variables.journal[type][name] = [this.payload[0].contents];
             }
         },
     });
 
     function getTitle(payload) {
-        return payload[0].contents ? `${payload[0].contents}\n` : '';
+        return payload[0].contents || '';
+    }
+
+    function renderJournalSection(title, entries) {
+        const out = jQuery(`<header class="journalHeader">${title}</header><ul class="journalEntries">${entries.map(e => `<li>${e}</li>`).join('')}</ul>`);
+        return out;
     }
 
     Macro.add('journaldisplay', {
@@ -92,14 +97,11 @@
             const {name, type} = ensureNameType(this.args);
 
             const title = getTitle(this.payload);
-            const entries = State.active.variables.journal[type][name];
+            const entries = State.variables.journal[type][name];
 
             if (entries && entries.length) {
-                const out = `${title}${entries.join('\n')}`;
-
-                new Wikifier(this.output, out);
-            } else {
-                this.output.textContent = '';
+                const out = renderJournalSection(title, entries);
+                out.appendTo(this.output);
             }
         },
     });
