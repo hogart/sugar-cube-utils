@@ -13,7 +13,7 @@
         left: 0;
         height: 100%;
         width: 100%;
-        
+
         visibility: hidden;
         opacity: 0;
         transition: 1s linear;
@@ -25,14 +25,13 @@
         transition: 1s linear;
         transition-property: opacity, visibility;
     }
-    
+
     html.${clsPrefix}-blur {
         filter: blur(10px);
         transition: 1s filter linear;
-    }
-    html:not(.${clsPrefix}-blur) {
-        filter: blur(0px);
-        transition: 1s filter linear;
+        /* without these 2 lines, firefox does weird things */
+        height: 100%;
+        overflow: hidden;
     }
     `;
 
