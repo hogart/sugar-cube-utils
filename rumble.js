@@ -13,7 +13,7 @@
         throw new Error('<<rumble>> macro requires SugarCube 2.0 or greater, aborting load');
     }
 
-    version.extensions.vibrate = {major: 1, minor: 0, revision: 0};
+    version.extensions.rumble = {major: 1, minor: 0, revision: 0};
 
     Macro.add('rumble', {
         handler() {

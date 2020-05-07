@@ -7,7 +7,7 @@
 
     function _extendArray(arr, value = null) {
         if (value === null) {
-            value = random(arr.length - 1)
+            value = random(arr.length - 1);
         }
 
         Object.defineProperty(arr, lastIndex, {
@@ -48,7 +48,7 @@
 
         return function () {
             return _getNextUnique(arr);
-        }
+        };
     }
 
     function _getPassageLines(passage) {
