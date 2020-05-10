@@ -1,4 +1,4 @@
-(function () {
+(function menuButton() {
     'use strict';
 
     // Utility functions to create buttons in dock menu.
@@ -46,7 +46,15 @@
                 }
                 .multiButton .buttons a {
                     flex-grow: 1;
-                }`;
+                }
+                .multiButton .buttons a[disabled] {
+                    opacity: 0.6;
+                    pointer-events: none;
+                }
+                .multiButton .buttons a.active {
+                    border-color: currentColor !important;
+                }
+                `;
 
             const $style = jQuery(`<style type="text/css" id="multi-button-style">${styles}</style>`);
             $style.appendTo($head);
