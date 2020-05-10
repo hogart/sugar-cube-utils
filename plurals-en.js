@@ -1,20 +1,21 @@
 (function () {
-    // See plurals-en.ru for English
+    // See plurals-independent.ru for Russian
     'use strict';
-
-    const indexes = [2, 0, 1, 1, 1, 2];
 
     /**
      *
      * @param {number} amount
-     * @param {string[]} cases For slavic languages: ['яблоко', 'яблока', 'яблок']
+     * @param {string[]} cases Third case is optional and is used for zero ['apples', 'apples', 'no apples']
      * @returns {string}
      */
     function pluralize(amount, cases) {
-        const mod100 = amount % 100;
-        const mod10 = amount % 10;
-        const index = (mod100 > 4 && mod100 < 20) ? 2 : indexes[(mod10 < 5) ? mod10 : 5];
-        return cases[index];
+        if (amount === 1) {
+            return cases[0];
+        } else if (cases.length === 3 && amount === 0) {
+            return cases[2];
+        } else {
+            return cases[1];
+        }
     }
 
     const amountRe = /\${amount}/mg;
