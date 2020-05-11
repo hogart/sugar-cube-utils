@@ -27,7 +27,7 @@ This can also be used to tell a story from perspectives of two persons regardles
 
 Default checkboxes can look ugly and not fit into overall visual style. So `<<iconcheck>>` displays neat switch icon in the same style as built-in SugarCube controls.
 Simplest form is `<<iconcheck $isSomething>>toggle value<</iconcheck>>`, this will display same label no matter what the value is.
-Most flexible form looks like this and allows you to run some callback when value changes: 
+Most flexible form looks like this and allows you to run some callback when value changes:
 ```
 <<set _handler = function (value) { alert(value ? 'You turned it on!' : 'You turned it off!') }
 <<iconcheck $isSomething "Turn on" "Turn off" _handler>><</iconcheck>>
@@ -35,7 +35,7 @@ Most flexible form looks like this and allows you to run some callback when valu
 
 ### `<<rumble>>`
 
-Makes you device vibrate, and does nothing if browser/device doesn't [support](https://caniuse.com/#feat=vibration) [Vibration API](https://developer.mozilla.org/docs/Web/API/Navigator/vibrate). Please keep in mind that support is spotty (mostly Android and iOS Chrome and Firefox, no gamepads at all), and long vibrations or sequences can be chopped or dropped entirely, so don't rely on it to convey critical parts of story. Also be polite and provide players with means to turn it off completely. 
+Makes your device vibrate, and does nothing if browser/device doesn't [support](https://caniuse.com/#feat=vibration) [Vibration API](https://developer.mozilla.org/docs/Web/API/Navigator/vibrate). Please keep in mind that support is spotty (mostly Android and iOS Chrome and Firefox, no gamepads at all), and long vibrations or sequences can be chopped or dropped entirely, so don't rely on it to convey critical parts of story. Also be polite and provide players with means to turn it off completely.
 
 ```
 <<rumble 100>> <!-- single vibration pulse -->
@@ -56,7 +56,7 @@ Provide `scUtils.createPassageButton(label, iconContent, passageName)` and `scUt
 
 ### `about.js` (relies on menuButton.js)
 
-If story have passage titled `StoryAbout`, adds "About" button which displays dialogue window with this passage rendered inside. Good for providing links to your website/patreon and attributing used assets. To change button label, assign value to correspondent l10n key:`l10nStrings.uiBarAbout = 'Who made this wonderful game?'` 
+If story have passage titled `StoryAbout`, adds "About" button which displays dialogue window with this passage rendered inside. Good for providing links to your website/patreon and attributing used assets. To change button label, assign value to correspondent l10n key:`l10nStrings.uiBarAbout = 'Who made this wonderful game?'`
 
 ### `daymode.js` and `daymode.css` (relies on menuButton.js)
 
@@ -78,9 +78,9 @@ Adds "Full screen" button switch to UIBar (if browser supports this API). Suppos
 
 ### LocationFinder.js
 
-Game can consist of different locations. Suppose you want to change some styles and switch background music depending on whether player is in dungeon, forest or desert. Using vanilla SugarCube you'll need to assign designated tag to every passage in each location (and 100 passages is not a very big game). Now add music to equation and remember that player can save/load and use checkpoints. 
+Game can consist of different locations. Suppose you want to change some styles and switch background music depending on whether player is in dungeon, forest or desert. Using vanilla SugarCube you'll need to assign designated tag to every passage in each location (and 100 passages is not a very big game). Now add music to equation and remember that player can save/load and use checkpoints.
 
-`scUtils.LocationFinder` tries to solve this issue. 
+`scUtils.LocationFinder` tries to solve this issue.
 0. Tag passages where player enters new locations with `locationName-desert` and `locationOrder-0`, `locationName-forest` and `locationOrder-1`, and so on. `locationOrder-` should have numbers according to how player supposed to move through story.
 0. Call `window.finder = new scUtils.LocationFinder(onChange, 'location-', passageEvents)` in `StoryInit` or in game JavaScript.
     0. `onChange` is optional handler which will be called each time location changes, and is passed `newLocation` and `oldLocation` arguments. You can pass `null` if you don't need this.
@@ -110,7 +110,7 @@ Both **plurals.js** and **plurals-independent.js** expose same two functions, di
 
 ### qbn.js
 
-Quest tracker, exposes `window.qbn` object. 
+Quest tracker, exposes `window.qbn` object.
 
 Suppose player should visit 5 rooms out of 7 in building before he can proceed with story, or examine 3 evidences out of 5 before character comes to conclusion. If character can visit rooms (and return to where they were before) or examine clues in random order, you'll need 7 (or 5) boolean variables and unmaintainable `if()` condition to allow that. You can put some flags into array, but this requires filtering out non-unique values. `qbn` helps with all that:
 ```js
@@ -120,7 +120,7 @@ if (qbn.length('house') === 3) { alert('house fully explored') }
 qbn.set('house', 'ground floor'); // qbn.length('dungeon') still equals 2
 
 // these methods more useful when tracking some character qualities (like in Sunless Sea)
-qbn.unset('island', 'pleasant acquaintance'); 
+qbn.unset('island', 'pleasant acquaintance');
 qbn.inc('madness', 12); // time to eat your crew yet?
 qbn.dec('madness', 5); // qbn.length('madness') === 7
 ```

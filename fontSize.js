@@ -1,4 +1,4 @@
-(function () {
+(function fontSize() {
     'use strict';
 
     // requires menuButton.js
@@ -26,7 +26,6 @@
         $passages.style.fontSize = `${value}%`;
     }
 
-
     function createFontSizeBtn(interval = 10, min = 60, max = 200) {
         let fs = loadFontSize();
 
@@ -46,12 +45,26 @@
             },
         };
 
-        scUtils.createMultiButton('fontSize', l10nStrings.uiFontSize || 'Font size', ['-', '+'], (event, index) => {
+        function updateUI(button) {
+            button.find('a').removeAttr('disabled');
+
+            if (fs === min) {
+                button.find('a:eq(0)').attr('disabled', true);
+            } else if (fs === max) {
+                button.find('a:eq(1)').attr('disabled', true);
+            }
+        }
+
+        const {button} = scUtils.createMultiButton('fontSize', l10nStrings.uiFontSize || 'Font size', ['-', '+'], (event, index) => {
             ops[index === 0 ? 'dec' : 'inc']();
+
+            updateUI(button);
 
             applyFontSize(fs);
             saveFontSize(fs);
         });
+
+        updateUI(button);
     }
 
     window.scUtils = Object.assign(
