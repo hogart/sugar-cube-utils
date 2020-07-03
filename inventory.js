@@ -1,7 +1,6 @@
 (function () {
     'use strict';
 
-    /* globals jQuery */
     // requires onPassagePresent.js
 
     // Utility functions to manage inventory appearance.

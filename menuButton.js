@@ -6,7 +6,7 @@
     // scUtils.createHandlerButton creates button which calls given handler.
     // Both methods return {button, style} objects with jQuery-wrapped references to created elements
 
-    /* globals Story, Dialog, jQuery */
+    /* globals Story, Dialog */
 
     // save some DOM references for later use
     const $head = jQuery('head');

@@ -1,8 +1,6 @@
 (function () {
     'use strict';
 
-    /* globals jQuery */
-
     const clsPrefix = 'faint';
 
     const styles = `

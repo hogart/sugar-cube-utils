@@ -3,7 +3,7 @@
 
     // requires menuButton.js
 
-    /* globals scUtils, l10nStrings, jQuery */
+    /* globals scUtils, l10nStrings */
 
     function saveVolume(value) {
         localStorage.setItem('masterVolume', value);
@@ -114,6 +114,6 @@
         window.scUtils || {},
         {
             createVolumeButtons,
-        }
+        },
     );
 }());

@@ -1,12 +1,16 @@
 (function () {
     'use strict';
-    /* globals version, Macro, jQuery, Story, Config, State, Wikifier, Engine */
+    /* globals version, Macro, Story, Config, State, Wikifier, Engine */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<linkif>> macro requires SugarCube 2.0 or greater, aborting load');
     }
 
     version.extensions.linkif = { major: 1, minor: 0, revision: 0 };
+
+    function has(obj, prop) {
+        return Object.prototype.hasOwnProperty.call(obj, prop);
+    }
 
     function parseLinkArg(arg) {
         let passage;
@@ -16,15 +20,15 @@
             $content = jQuery(document.createElement('img'))
                 .attr('src', arg.source);
 
-            if (arg.hasOwnProperty('passage')) {
+            if (has(arg, 'passage')) {
                 $content.attr('data-passage', arg.passage);
             }
 
-            if (arg.hasOwnProperty('title')) {
+            if (has(arg,'title')) {
                 $content.attr('title', arg.title);
             }
 
-            if (arg.hasOwnProperty('align')) {
+            if (has(arg, 'align')) {
                 $content.attr('align', arg.align);
             }
 

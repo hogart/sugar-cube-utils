@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    /* globals Story, visitedTags, Config, jQuery */
+    /* globals Story, visitedTags, Config */
 
     class LocationFinder {
         constructor(onChange = null, classNamePrefix = 'location-', eventHandlers = null) {

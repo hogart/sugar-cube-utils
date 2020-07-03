@@ -1,7 +1,7 @@
 (function() {
     // usage: <<abbr "text" "long explanation">>
     'use strict';
-    /* globals version, Macro, jQuery */
+    /* globals version, Macro */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<abbr>> macro requires SugarCube 2.0 or greater, aborting load');
@@ -31,13 +31,13 @@
             pointer-events: none;
             opacity: 0;
             border: 1px solid currentColor;
-            transition: 150ms linear all; 
+            transition: 150ms linear all;
         }
         .${clsPrefix}:active::before,
         .${clsPrefix}:hover::before {
             pointer-events: auto;
             opacity: 1;
-            transition: 150ms linear all; 
+            transition: 150ms linear all;
         }
         /* to avoid setting bg color manually */
         #story, #passages, .passage, .passage *, .passage * .${clsPrefix}, .${clsPrefix}::before {

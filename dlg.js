@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    /* globals version, Macro, jQuery */
+    /* globals version, Macro */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<dlg>> macro requires SugarCube 2.0 or greater, aborting load');

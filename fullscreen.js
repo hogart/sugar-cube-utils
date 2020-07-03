@@ -71,8 +71,8 @@ html:${selector} {
     margin-top: 0;
 }
 
-:${selector} #menu-core #${styleId} a::before { 
-    content: '\\e831\\00a0'; 
+:${selector} #menu-core #${styleId} a::before {
+    content: '\\e831\\00a0';
 }
 `;
 

@@ -1,12 +1,16 @@
 (function () {
     'use strict';
-    /* globals version, Macro, jQuery, visited, Story */
+    /* globals version, Macro, visited, Story, Config, Wikifier, Engine, State */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<linkonce>> macro requires SugarCube 2.0 or greater, aborting load');
     }
 
     version.extensions.linkonce = { major: 1, minor: 0, revision: 0 };
+
+    function has(obj, prop) {
+        return Object.prototype.hasOwnProperty.call(obj, prop);
+    }
 
     function parseLinkArg(arg) {
         let passage;
@@ -16,15 +20,15 @@
             $content = jQuery(document.createElement('img'))
                 .attr('src', arg.source);
 
-            if (arg.hasOwnProperty('passage')) {
+            if (has(arg, 'passage')) {
                 $content.attr('data-passage', arg.passage);
             }
 
-            if (arg.hasOwnProperty('title')) {
+            if (has(arg,'title')) {
                 $content.attr('title', arg.title);
             }
 
-            if (arg.hasOwnProperty('align')) {
+            if (has(arg, 'align')) {
                 $content.attr('align', arg.align);
             }
 
@@ -38,14 +42,14 @@
         return {
             passage,
             $content,
-        }
+        };
     }
 
     Macro.add('linkonce', {
         tags: null,
         handler() {
             if (this.args.length === 0) {
-                return this.error(`no linkonce text specified`);
+                return this.error('no linkonce text specified');
             }
 
             if (this.args.length > 1) {

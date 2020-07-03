@@ -4,7 +4,7 @@
     // ...
     // Your father says: My dear <<gender "daughter" "son">>!
     'use strict';
-    /* globals version, Macro, jQuery, State */
+    /* globals version, Macro, State */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<gender*>> macros family requires SugarCube 2.0 or greater, aborting load');

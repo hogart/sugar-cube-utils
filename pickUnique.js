@@ -5,6 +5,10 @@
 
     const lastIndex = '__lastIndex';
 
+    function has(obj, prop) {
+        return Object.prototype.hasOwnProperty.call(obj, prop);
+    }
+
     function _extendArray(arr, value = null) {
         if (value === null) {
             value = random(arr.length - 1);
@@ -33,7 +37,7 @@
      * @return {any}
      */
     function pickUnique(arr) {
-        if (!arr.hasOwnProperty(lastIndex)) {
+        if (!has(arr, lastIndex)) {
             const value = random(arr.length - 1);
             _extendArray(arr, value);
 
@@ -58,7 +62,7 @@
         } else { // we have passage name
             const rawPassage = Story.get(passage);
             if (!rawPassage) {
-                throw new Error(`No such passage: "${passage}".`)
+                throw new Error(`No such passage: "${passage}".`);
             }
 
             text = rawPassage.processText();

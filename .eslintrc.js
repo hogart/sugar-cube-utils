@@ -1,10 +1,13 @@
 'use strict';
 
+/* eslint-env node */
+
 module.exports = {
     parser: 'babel-eslint',
-    'env': {
+    env: {
         'browser': true,
         'es6': true,
+        'jquery': true,
     },
     'extends': 'eslint:recommended',
     'rules': {

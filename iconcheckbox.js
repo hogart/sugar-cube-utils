@@ -3,7 +3,7 @@
     // <<iconcheck $isSomething>>toggle value<</iconcheck>>
     // <<iconcheck $isSomething "Turn on" "Turn off">><</iconcheck>>
     'use strict';
-    /* globals version, Macro, jQuery, Wikifier, State */
+    /* globals version, Macro, Wikifier, State */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<iconcheck>> macro requires SugarCube 2.0 or greater, aborting load');
@@ -20,12 +20,12 @@
         .${clsPrefix} input {
             visibility: hidden;
         }
-        
+
         .${clsPrefix} input + span::before {
             font-family: tme-fa-icons;
             content: '\\e830\\00a0';
         }
-        
+
         .${clsPrefix} input:checked + span::before {
             content: '\\e831\\00a0';
         }

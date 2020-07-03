@@ -1,7 +1,7 @@
 (function() {
     // usage: <<more "tooltip">>content<</more>>
     'use strict';
-    /* globals version, Macro, jQuery */
+    /* globals version, Macro */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<more>> macro requires SugarCube 2.0 or greater, aborting load');
@@ -130,7 +130,7 @@
             pointer-events: auto;
             box-shadow: 0px 0px 1em 0px;
         }
-        
+
         body #story, body #story .${clsPrefix} {
             background-color: inherit;
         }

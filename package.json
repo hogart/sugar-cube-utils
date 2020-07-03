@@ -6,16 +6,18 @@
   "license": "MIT",
   "repository": "git@github.com:hogart/sugar-cube-utils.git",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint --ignore-path .gitignore --format=unix ."
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.3",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-minify": "^0.3.0",
-    "eslint": "^4.19.1"
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@types/jquery": "^3.5.0",
+    "babel-eslint": "^10.1.0",
+    "babel-preset-minify": "^0.5.1",
+    "eslint": "^7.3.1"
   },
   "browserslist": [
     "> 1%, last 3 versions, last 10 Chrome versions, last 10 Firefox versions, IE >= 9, Opera >= 12"
-  ]
+  ],
+  "dependencies": {}
 }

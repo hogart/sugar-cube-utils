@@ -7,7 +7,7 @@
 
     'use strict';
 
-    /* globals storage, State, jQuery, l10nStrings, scUtils */
+    /* globals storage, State, l10nStrings, scUtils */
 
     const $html = jQuery('html');
 

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    /* globals jQuery, Engine */
+    /* globals Engine */
 
     const $doc = jQuery(document);
 

@@ -26,7 +26,7 @@
      */
     'use strict';
 
-    /* globals version, State, Macro, jQuery */
+    /* globals version, State, Macro */
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error('<<journal*>> macros family requires SugarCube 2.0 or greater, aborting load');

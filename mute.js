@@ -5,7 +5,7 @@
 
     'use strict';
 
-    /* globals jQuery, l10nStrings, scUtils */
+    /* globals l10nStrings, scUtils */
 
     let mute = localStorage.getItem('mute') === 'true';
 
