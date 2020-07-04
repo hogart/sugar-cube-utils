@@ -73,7 +73,7 @@ This can also be used to tell a story from perspectives of two persons regardles
 
 ### [`<<hubnav>>`](./hubnav.js)
 
-Easy navigation for set of interconnected locations. Imagine house consisting of bedroom, bathroom, living room, garage and kitchen. Each room has links to other ones but not on itself. Throw in some links that are displayed conditionally and there whole mess on your hands. `<<hubnav>>` to the rescue!
+Easy navigation for set of interconnected locations. Imagine house consisting of bedroom, bathroom, living room, garage and kitchen. Each room has links to other ones but not on itself. Throw in some links that are displayed conditionally and there's whole mess on your hands. `<<hubnav>>` to the rescue!
 ```
 ::_home navigation
 <<hubnav
@@ -175,7 +175,7 @@ Entries content gets rendered when <<journaldisplay>> is used, not when they are
 
 This can also serve as a simple inventory system.
 
-### [`<<linkif [[text|Passage]] \`expression\`>>`](./linkif.js)
+### [``<<linkif [[text|Passage]] `expression`>>``](./linkif.js)
 
 Functionally identical to native [`<<link>>`](http://www.motoslave.net/sugarcube/2/docs/#macros-macro-link), except it's only clickable if second argument is truthy, and just shows plain text otherwise.
 
@@ -231,7 +231,7 @@ Exposes `scUtils.faint(callback, duration, color, blur)` function, which fills s
 
 Useful for emulating loosing conscience, teleportation, extended periods of time passing, etc.
 
-### [`fontSize.js`](./fontSize.js)
+### [`fontSize.js`](./fontSize.js) (relies on menuButton.js)
 
 Exposes `scUtils.createFontSizeBtn` function. When called this function creates buttons in sidebar to increase/decrease font size. To change button label, assign value to correspondent l10n key:`l10nStrings.uiFontSize = 'Zoom in/out'` (defaults to 'Font size').
 
@@ -254,7 +254,7 @@ Same location name can be used several times throughout the story, but each time
 
 ### [`mute.js`](./mute.js) (relies on menuButton.js)
 
-**NB: Deprecated, use volumeButtons.js**
+**NB: Deprecated, use [volumeButtons.js](#volume-buttons)**
 
 Adds "Sound" button switch to UIBar, which mutes/unmutes SugarCube audio engine (note id doesn't stop playback). To change button label, assign value to correspondent l10n key:`l10nStrings.uiBarMute = 'Shut up'`.
 
@@ -323,7 +323,7 @@ qbn.inc('madness', 12); // time to eat your crew yet?
 qbn.dec('madness', 5); // qbn.length('madness') === 7
 ```
 
-### [`volumeButtons.js`](./volumeButtons.js)
+### [`volumeButtons.js`](./volumeButtons.js) (relies on menuButton.js) {#volume-buttons}
 
 Exposes `scUtils.createVolumeButtons` function, which adds volume control buttons to the UI bar. To change button label, assign value to correspondent l10n key:`l10nStrings.uiVolumeControl = 'Level of AWESOME'`.
 
@@ -333,7 +333,7 @@ const labels = ['🔈', '🔇', '🔊'];
 scUtils.createVolumeButtons(step, volume);
 ```
 
-## Using the code
+## Using the code {#using-the-code}
 
 Code in the repo uses pretty new JS language features and as-is will work only in fresh Chrome and FF and latest Safari (last 2-3 years). This is fine if you're wrapping your game in NW.js or Electron or during debug stages, but may be unacceptable for web distribution. To remedy that, use `bin/build.js` script like so:
 ```sh
