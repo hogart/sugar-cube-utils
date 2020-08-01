@@ -1,28 +1,28 @@
 (function() {
     /**
-     * <<journaladd "Santa Claus" "characters">>Lives on North Pole (this is journal entry content)<</journaladd>>
-     * <<journaladd "Santa Claus" "characters">>Has 4 reindeers<</journaladd>>
-     * <<journaldisplay "Santa Claus" "characters">>Gift giver (this serves as optional title)<</journaldisplay>>
-     * // renders all entries in order they were entered
-     *
-     * <<journalreplace "Santa Claus" "characters">>Doesn't exist!!!<</journalreplace>>
-     * <<journaldisplay "Santa Claus" "characters">><</journaldisplay>>
-     * // Will show only one entry
-     *
-     * <<journalreplace "Santa Claus" "characters" true>>(Nothing will be shown when journaldisplay called)<</journalreplace>>
-     * Note that you need to have exactly 3 arguments for this to work
-     *
-     * All arguments are optional and defaults to empty strings
-     * <<journaladd "Santa Claus">>Have all journal entries in one place<</journaladd>>
-     * <<journalreplace "Santa Claus" "">><</journalreplace>>
-     *
-     * Entries content gets rendered when <<journaldisplay>> is used, not when they are added:
-     * <<set $melike = "pies">>
-     * <<journaladd>>I like $melike!<</journaladd>>
-     * <<set $melike = "ice cream">>
-     * <<journaldisplay>>Me<</journaldisplay>>
-     *
-     * Internally, all entries are stored in `State.variables.journal`.
+     <<journaladd "Santa Claus" "characters">>Lives on North Pole (this is journal entry content)<</journaladd>>
+     <<journaladd "Santa Claus" "characters">>Has 4 reindeers<</journaladd>>
+     <<journaldisplay "Santa Claus" "characters">>Gift giver (this serves as optional title)<</journaldisplay>>
+     // renders all entries in order they were entered
+
+     <<journalreplace "Santa Claus" "characters">>Doesn't exist!!!<</journalreplace>>
+     <<journaldisplay "Santa Claus" "characters">><</journaldisplay>>
+     // Will show only one entry
+
+     <<journalreplace "Santa Claus" "characters" true>>(Nothing will be shown when journaldisplay called)<</journalreplace>>
+     Note that you need to have exactly 3 arguments for this to work
+
+     All arguments are optional and defaults to empty strings
+     <<journaladd "Santa Claus">>Have all journal entries in one place<</journaladd>>
+     <<journalreplace "Santa Claus" "">><</journalreplace>>
+
+     Entries content gets rendered when <<journaldisplay>> is used, not when they are added:
+     <<set $melike = "pies">>
+     <<journaladd>>I like $melike!<</journaladd>>
+     <<set $melike = "ice cream">>
+     <<journaldisplay>>Me<</journaldisplay>>
+
+     Internally, all entries are stored in `State.variables.journal`.
      */
     'use strict';
 
@@ -87,8 +87,10 @@
     }
 
     function renderJournalSection(title, entries) {
-        const out = jQuery(`<header class="journalHeader">${title}</header><ul class="journalEntries">${entries.map(e => `<li>${e}</li>`).join('')}</ul>`);
-        return out;
+        const ul = jQuery('<ul class="journalEntries"></ul>');
+        entries.forEach((entry) => jQuery('<li></li>').wiki(entry).appendTo(ul));
+        jQuery(`<header class="journalHeader">${title}</header>`).insertBefore(ul);
+        return ul;
     }
 
     Macro.add('journaldisplay', {
