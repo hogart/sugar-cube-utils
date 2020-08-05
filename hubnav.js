@@ -136,7 +136,7 @@
             const $output = jQuery(this.output);
 
             links.forEach((link) => {
-                $output.append(renderLinkWrapper(createLink(link, this)));
+                $output.append(renderLinkWrapper(createLink(link)));
             });
         },
     });
