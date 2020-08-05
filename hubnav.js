@@ -1,10 +1,10 @@
-(function hubnav(renderLinkWrapper) {
+(function hubnavMacro(renderLinkWrapper) {
     'use strict';
-    /* globals version, Story, Config, Macro, passage, Engine, State */
-    const macroname = 'hubnav';
+    /* globals version, Story, Config, Macro, passage, Wikifier, State */
+    const macroName = 'hubnav';
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
-        throw new Error(`<<${macroname}>> macros family requires SugarCube 2.0 or greater, aborting load`);
+        throw new Error(`<<${macroName}>> macros family requires SugarCube 2.0 or greater, aborting load`);
     }
 
     renderLinkWrapper = renderLinkWrapper || function(link) {
@@ -47,15 +47,23 @@
         return {
             passage,
             $content,
+            setFn: arg.setFn,
         };
     }
 
-    function createLink({passage, $content}, ctx) {
-        const $link = jQuery(document.createElement( 'a'));
-
-        $content.appendTo($link);
-        $link.append($content);
-        $link.addClass(`macro-${macroname}`);
+    function createLink({passage, $content, setFn}) {
+        const $link = jQuery(Wikifier.createInternalLink(
+            null,
+            passage,
+            null,
+            ((passage, fn) => () => {
+                if (typeof fn === 'function') {
+                    fn();
+                }
+            })(passage, setFn)
+        ))
+            .addClass(`macro-${macroName}`)
+            .append($content);
 
         if (passage != null) { // lazy equality for null
             $link.attr('data-passage', passage);
@@ -73,17 +81,6 @@
             $link.addClass('link-internal');
         }
 
-        $link
-            .ariaClick({
-                namespace: '.macros',
-                one: passage != null, // lazy equality for null
-            }, ctx.createShadowWrapper(
-                null,
-                passage != null // lazy equality for null
-                    ? () => Engine.play(passage)
-                    : null,
-            ));
-
         return $link;
     }
 
@@ -91,10 +88,10 @@
         return arg && jQuery.isPlainObject(arg) && ('link' in arg);
     }
 
-    Macro.add(macroname, {
+    Macro.add(macroName, {
         handler() {
             if (this.args.length === 0) {
-                return this.error(`no ${macroname} links specified`);
+                return this.error(`no ${macroName} links specified`);
             }
 
             const currentPassage = passage();
