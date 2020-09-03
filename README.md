@@ -45,13 +45,16 @@ Most macros include built-in styles created by JS, so you can copy-paste one fil
 <</dlg>>
 ```
 
+#### `<<dlg>>`
 `<<dlg>>` accepts 3 optional arguments:
 * dialogue id (any unique string): needed only if there's several dialogues in the same passage.
 * starting level (number): if you need to skip introductions. Defaults to 0.
 * prefix (any string): will be prepended to each line. Empty string by default.
 
+#### `<<level>>`
 `<<level>>` accepts single numeric argument: it's level.
 
+#### `<<line>>`
 `<<line` accepts up to 3 arguments:
 * line (any string, **mandatory**): short version of a text player character will say.
 * prefix (any string, optional): (in)famous "wheel of emotions" kind of thingie prepended to a line, defaults to empty string.
@@ -305,10 +308,14 @@ If your logo or background image is heavy, it may take some time to load for a p
 scUtils.preloadImages(['img/heavy-background.jsp', 'img/huge-logo.png']).then(() => console.log('Images loaded!'));
 ```
 
+### [`promiseLock.js`](./promiseLock.js)
+
+If you need to load heave scripts, styles, images or other assets, it may be good idea to show load screen during the process. `window.scUtils.promiseLock` accepts a `Promise` object and shows load screen until the promise resolves successfully.
+
 
 ### [`qbn.js`](./qbn.js)
 
-Quest tracker, exposes `window.qbn` object.
+Quest tracker, exposes `window.qbn` and `window.scUtils.qbn` objects.
 
 Suppose player should visit any 5 rooms out of 7 in building before he can proceed with story, or examine any3 evidences out of 5 before character comes to conclusion. If character can visit rooms (and return to where they were before) or examine clues in random order, you'll need 7 (or 5) boolean variables and unmaintainable `if()` condition to allow that. You can put some flags into array, but this requires filtering out non-unique values. `qbn` helps with all that:
 ```js
