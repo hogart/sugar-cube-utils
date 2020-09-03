@@ -1,4 +1,4 @@
-(function () {
+(function preloadImagesUtil() {
     'use strict';
 
     /* globals LoadScreen */

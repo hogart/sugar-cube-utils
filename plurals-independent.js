@@ -1,4 +1,4 @@
-(function () {
+(function pluralsRu() {
     // See plurals-en.ru for English
     'use strict';
 

@@ -1,4 +1,4 @@
-(function () {
+(function plurals() {
     // Depends on Intl.PluralRules implemented or polyfilled. At the moment of writing, Chrome only:(
     // See plurals-independent.js for less restrictive implementation (Russian-only, sorry!)
     'use strict';

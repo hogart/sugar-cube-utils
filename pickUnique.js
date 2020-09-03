@@ -1,4 +1,4 @@
-(function () {
+(function pickUniqueUtil() {
     'use strict';
 
     /* globals random, Story */

@@ -1,21 +1,23 @@
-(function() {
+(function moreMacro() {
     // usage: <<more "tooltip">>content<</more>>
     'use strict';
     /* globals version, Macro */
 
+    const macroName = 'more';
+
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
-        throw new Error('<<more>> macro requires SugarCube 2.0 or greater, aborting load');
+        throw new Error(`<<${macroName}>> macro requires SugarCube 2.0 or greater, aborting load`);
     }
 
-    version.extensions.more = {major: 1, minor: 0, revision: 0};
+    version.extensions[macroName] = {major: 1, minor: 0, revision: 0};
 
-    const clsPrefix = 'moremacro';
+    const clsPrefix = `more${macroName}`;
 
     class Tooltiper {
         constructor(options) {
             this.options = Object.assign({}, {
                 container: document.body,
-                clsPrefix: 'moremacro',
+                clsPrefix,
             }, options);
 
             this.container = typeof this.options.container === 'string' ? document.querySelector(this.options.container) : this.options.container;
@@ -146,11 +148,11 @@
         }
         `;
 
-    jQuery('head').append(`<style type="text/css">${styles}</style>`);
+    jQuery('head').append(`<style type="text/css" id="${macroName}-style">${styles}</style>`);
 
     new Tooltiper({container: '#story'});
 
-    Macro.add('more', {
+    Macro.add(macroName, {
         tags: null,
         handler () {
             const more = jQuery(`<abbr data-${clsPrefix}="${this.args[0]}"></abbr>`);

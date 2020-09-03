@@ -1,4 +1,4 @@
-(function () {
+(function langBtn() {
     'use strict';
 
     // requires menuButton.js

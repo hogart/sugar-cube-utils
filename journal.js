@@ -1,4 +1,4 @@
-(function() {
+(function journalMacros() {
     /**
      <<journaladd "Santa Claus" "characters">>Lives on North Pole (this is journal entry content)<</journaladd>>
      <<journaladd "Santa Claus" "characters">>Has 4 reindeers<</journaladd>>

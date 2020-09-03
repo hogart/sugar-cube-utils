@@ -1,4 +1,4 @@
-(function () {
+(function onPassagePresentUtil() {
     'use strict';
 
     /* globals Engine */

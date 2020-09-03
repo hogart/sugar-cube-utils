@@ -1,4 +1,4 @@
-(function () {
+(function dlgMacros() {
     'use strict';
     /* globals version, Macro */
 

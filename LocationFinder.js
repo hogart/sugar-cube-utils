@@ -1,4 +1,4 @@
-(function () {
+(function LocationFinder() {
     'use strict';
 
     /* globals Story, visitedTags, Config */

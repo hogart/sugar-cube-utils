@@ -1,4 +1,4 @@
-(function() {
+(function rumbleMacro() {
     // makes your devices vibrate.
     // usage: <<rumble 100>> <<rumble 100, 200, 100, 500>> <<rumble stop>>
     // Please remember that Vibration API support is somewhat limited, so don't rely on it in critical parts.
@@ -9,17 +9,19 @@
     'use strict';
     /* globals version, Macro, Config */
 
+    const macroName = 'rumble';
+
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
-        throw new Error('<<rumble>> macro requires SugarCube 2.0 or greater, aborting load');
+        throw new Error(`<<${macroName}>> macro requires SugarCube 2.0 or greater, aborting load`);
     }
 
-    version.extensions.rumble = {major: 1, minor: 0, revision: 0};
+    version.extensions[macroName] = {major: 1, minor: 0, revision: 0};
 
-    Macro.add('rumble', {
+    Macro.add(macroName, {
         handler() {
             if (!navigator.vibrate) {
                 if (Config.debug) {
-                    console.warn('Vibration not supported, <<rumble>> will do nothing.');
+                    console.warn(`Vibration not supported, <<${macroName}>> will do nothing.`);
                 }
 
                 return;
@@ -28,7 +30,7 @@
             const args = this.args;
 
             if (!args.length && Config.debug) {
-                console.error('<<rumble>> needs arguments: stop or comma-delimited positive integers.');
+                this.error(`<<${macroName}>> needs arguments: 'stop' or comma-delimited positive integers.`);
 
                 return;
             }

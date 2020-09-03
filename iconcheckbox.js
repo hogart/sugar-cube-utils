@@ -1,12 +1,14 @@
-(function() {
+(function iconcheckMacro() {
     // usage:
     // <<iconcheck $isSomething>>toggle value<</iconcheck>>
     // <<iconcheck $isSomething "Turn on" "Turn off">><</iconcheck>>
     'use strict';
     /* globals version, Macro, Wikifier, State */
 
+    const macroName = 'iconcheck';
+
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
-        throw new Error('<<iconcheck>> macro requires SugarCube 2.0 or greater, aborting load');
+        throw new Error(`<<${macroName}>> macro requires SugarCube 2.0 or greater, aborting load`);
     }
 
     version.extensions.abbr = {major: 1, minor: 0, revision: 0};
@@ -14,26 +16,26 @@
     const clsPrefix = 'iconcheck';
 
     const styles = `
-        .${clsPrefix} {
+        .${macroName} {
             cursor: pointer;
         }
-        .${clsPrefix} input {
+        .${macroName} input {
             visibility: hidden;
         }
 
-        .${clsPrefix} input + span::before {
+        .${macroName} input + span::before {
             font-family: tme-fa-icons;
             content: '\\e830\\00a0';
         }
 
-        .${clsPrefix} input:checked + span::before {
+        .${macroName} input:checked + span::before {
             content: '\\e831\\00a0';
         }
         `;
 
-    jQuery('head').append(`<style type="text/css">${styles}</style>`);
+    jQuery('head').append(`<style type="text/css" id="${macroName}-style">${styles}</style>`);
 
-    Macro.add('iconcheck', {
+    Macro.add(macroName, {
         tags: null,
         handler () {
             const {args, payload} = this;

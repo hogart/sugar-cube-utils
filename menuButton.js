@@ -1,4 +1,4 @@
-(function menuButton() {
+(function menuButtonUtil() {
     'use strict';
 
     // Utility functions to create buttons in dock menu.

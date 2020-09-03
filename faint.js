@@ -1,4 +1,4 @@
-(function () {
+(function faintFactory() {
     'use strict';
 
     const clsPrefix = 'faint';

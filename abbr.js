@@ -1,4 +1,4 @@
-(function() {
+(function abbrMacro() {
     // usage: <<abbr "text" "long explanation">>
     'use strict';
     /* globals version, Macro */

@@ -1,4 +1,4 @@
-(function() {
+(function qbnUtil() {
     'use strict';
 
     /* globals State */

@@ -1,4 +1,4 @@
-(function fontSize() {
+(function fontSizeBtn() {
     'use strict';
 
     // requires menuButton.js

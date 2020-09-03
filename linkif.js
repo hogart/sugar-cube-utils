@@ -1,12 +1,14 @@
-(function () {
+(function linkifMacro() {
     'use strict';
     /* globals version, Macro, Story, Config, State, Wikifier, Engine */
 
+    const macroName = 'linkif';
+
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
-        throw new Error('<<linkif>> macro requires SugarCube 2.0 or greater, aborting load');
+        throw new Error(`<<${macroName}>> macro requires SugarCube 2.0 or greater, aborting load`);
     }
 
-    version.extensions.linkif = { major: 1, minor: 0, revision: 0 };
+    version.extensions[macroName] = { major: 1, minor: 0, revision: 0 };
 
     function has(obj, prop) {
         return Object.prototype.hasOwnProperty.call(obj, prop);
@@ -45,11 +47,11 @@
         };
     }
 
-    Macro.add('linkif', {
+    Macro.add(macroName, {
         tags: null,
         handler() {
             if (this.args.length !== 2) {
-                return this.error('linkif only accepts wiki-syntax: [[link text|Passage name]] and a variable/expression');
+                return this.error(`${macroName} only accepts wiki-syntax: [[link text|Passage name]] and a variable/expression`);
             }
 
             const {passage, $content} = parseLinkArg(this.args[0]);

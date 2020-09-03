@@ -1,4 +1,5 @@
-(function () {
+(function muteBtn() {
+    // Note: volumeButtons.js provides more functionality
     // requires menuButton.js
     //
     // Adds 'mute' toggle button to UI Bar

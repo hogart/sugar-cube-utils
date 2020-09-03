@@ -1,4 +1,4 @@
-(function() {
+(function genderSwitchMacros() {
     // usage:
     // My name is <<genderswitch $isFemale "Mary" "John">> Watson.
     // ...
@@ -28,7 +28,7 @@
             text-decoration: none;
         }`;
 
-    jQuery('head').append(`<style type="text/css">${styles}</style>`);
+    jQuery('head').append(`<style type="text/css" id="${clsPrefix}-style">${styles}</style>`);
     const html = document.documentElement;
     html.classList.add(`${clsPrefix}-f`);
 

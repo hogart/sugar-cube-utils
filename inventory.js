@@ -1,4 +1,4 @@
-(function () {
+(function inventoryUtil() {
     'use strict';
 
     // requires onPassagePresent.js

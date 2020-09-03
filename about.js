@@ -1,4 +1,4 @@
-(function () {
+(function storyAboutBtn() {
     'use strict';
     // requires menuButton.js
     //

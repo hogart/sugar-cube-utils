@@ -1,4 +1,4 @@
-(function () {
+(function fullscreenBtn() {
     'use strict';
 
     // requires menuButton.js

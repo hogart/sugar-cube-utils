@@ -1,4 +1,4 @@
-(function () {
+(function daymodeBtn() {
     // see daymode.css
     //
     // requires menuButton.js

@@ -1,4 +1,4 @@
-(function () {
+(function l10nRu() {
     'use strict';
 
     l10nStrings = { // eslint-disable-line no-undef, no-global-assign
