@@ -1,5 +1,5 @@
 (function pluralsRu() {
-    // See plurals-en.ru for English
+    // See plurals-en.js for English
     'use strict';
 
     const indexes = [2, 0, 1, 1, 1, 2];

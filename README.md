@@ -286,10 +286,9 @@ Ice cream
 Berries
 ```
 
-### [`plurals.js`](./plurals.js) and [`plurals-independent.js`](./plurals-independent.js)
+### [`plurals-en.js`](./plurals.js) and [`plurals-ru.js`](./plurals-ru.js)
 
-**Not really ready for production at the moment**
-While English (and most Germanic and Latin languages) only has two plural forms -- singular, and, well, plural, other languages can have more complex rules. For instance, Slavic languages have 3 forms (for 1 item, for 2..5 items, for lots of items, and they start to repeat when you reach 21), and that's not the limit, Arabic has 6 such forms. So to avoid things like "You have 0 message(s)", you need some utility function. `scUtils.pluralize` and `scUtils.pluralizeFmt` provide that.
+While English (and most Germanic and Latin languages) only has two plural forms -- singular, and, well, plural, other languages can have more complex rules. For instance, Slavic languages have 3 forms (for 1 item, for 2..5 items, for lots of items, and they start to repeat when you reach 21), and that's not the limit: Arabic has 6 such forms. So to avoid things like "You have 0 message(s)", you need some utility function. `scUtils.pluralize` and `scUtils.pluralizeFmt` provide that.
 
 `scUtils.pluralize` takes array of cases and amount: `scUtils.pluralize(['cat', 'cats'], numberOfCats)` or `scUtils.pluralize(['яблоко', 'яблок', 'яблока'], numberOfApples)` and return proper string. `scUtils.pluralizeFmt` takes array of cases and template and returns a function which takes number and returns cases and number wrapped in template:
 ```js
@@ -299,7 +298,9 @@ bulletAmount(1); // -> "У вас 1 патрон."
 bulletAmount(3); // -> "У вас 3 патрона."
 ```
 
-Both **plurals.js** and **plurals-independent.js** expose same two functions, difference is **plurals.js** works only in pretty recent Chrome versions and support both English and Russian; it requires `lang="en"` attribute on `<html>` to detect language. **plurals-independent.js** works pretty much everywhere but only supports Russian (should work with any Slavic language actually).
+Both **plurals-en.js** and **plurals-ru.js** expose same two functions, difference is **plurals.js** works only in pretty recent Chrome versions and support both English and Russian; it requires `lang="en"` attribute on `<html>` to detect language. **plurals-ru.js** works pretty much everywhere but only supports Russian (should work with any Slavic language actually).
+
+**NB: [`plurals.js`](./plurals.js) contains language independent pluralizer, based on built-in [Intl.PluralRules](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules). Unfortunately, [browser support is still spotty](https://caniuse.com/intl-pluralrules), so it's not really ready for production.**
 
 ### [`preloadImages.js`](./preloadImages.js)
 

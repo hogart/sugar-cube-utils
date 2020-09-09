@@ -1,6 +1,9 @@
 (function plurals() {
-    // Depends on Intl.PluralRules implemented or polyfilled. At the moment of writing, Chrome only:(
-    // See plurals-independent.js for less restrictive implementation (Russian-only, sorry!)
+    // Depends on Intl.PluralRules implemented or polyfilled (browser support still spotty at the time of writing)
+    // Make sure your game's `<html>` tag has proper `lang` attribute (defaults to 'en')
+
+    // See plurals-ru.js and plurals-en.js for versions that work anywhere
+
     'use strict';
 
     const localeTag = document.documentElement.getAttribute('lang') || 'en';
