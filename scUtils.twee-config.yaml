@@ -1,0 +1,40 @@
+sugarcube-2:
+    macros:
+        abbr:
+            deprecated: true
+            deprecatedSuggestions: [more]
+
+        more:
+            container: true
+
+        dlg:
+            container: true
+            children: [level]
+        level:
+            container: true
+            children: [line]
+            parents: [dlg]
+        line:
+            container: true
+            parents: [level]
+
+        gender: {}
+        genderswitch: {}
+
+        hubnav: {}
+
+        iconcheck: {}
+
+        journaladd:
+            container: true
+        journaldisplay:
+            container: true
+        journalreplace:
+            container: true
+
+        linkif:
+            container: true
+        linkonce:
+            container: true
+
+        rumble: {}

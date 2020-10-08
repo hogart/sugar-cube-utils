@@ -1,6 +1,9 @@
 # Collection of [SugarCube 2](http://www.motoslave.net/sugarcube/2/) macros and goodies
 
-Please note that code will not work in older browsers as-is. See [Using the code](#using-the-code) section below.
+Please note that code will not work in older browsers (Internet Explorer, pre-Chomium Edge, etc) as-is. See [Using the code](#using-the-code) section below.
+
+If you use [Twee 3 Language Tools](https://github.com/cyrusfirheir/twee3-language-tools) VS Code extension, you might find [`scUtils.twee-config.yaml`](./scUtils.twee-config.yaml) useful, as it contains declarations of all macros in this repo.
+
 
 ## Macros
 
