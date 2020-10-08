@@ -17,7 +17,7 @@ Most macros include built-in styles created by JS, so you can copy-paste one fil
 
 ### [`<<dlg>>`](./dlg.js), `<<level>>` and `<<line>>`.
 
-`<<dlg>>` is split into `<<level>>`s and they consist of `<<line>>`s. It will show the player all lines from given level. After player chooses a line, line's content gets appended and next level is displayed.
+`<<dlg>>` is split into `<<level>>`s, which, in turn, consist of `<<line>>`s. It will show the player all lines from given level. After player chooses a line, line's content gets appended and next level is displayed.
 
 ```
 ::Start
