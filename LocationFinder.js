@@ -1,7 +1,7 @@
 (function LocationFinder() {
     'use strict';
 
-    /* globals Story, visitedTags, Config */
+    /* globals Story, Config, State */
 
     class LocationFinder {
         constructor(onChange = null, classNamePrefix = 'location-', eventHandlers = null) {
@@ -16,14 +16,10 @@
                 }
             });
 
-            this.markers.sort((locA, locB) => {
-                return locA.order - locB.order;
-            });
-
             if (Config.debug) {
                 console.info(
                     `Locations detected:
-                    ${this.markers.map((marker) => `${marker.order}: ${marker.name}`).join('\n')}`
+                    ${this.markers.map((marker) => `\t${marker}`).join('\n')}`
                 );
             }
 
@@ -76,64 +72,57 @@
 
         _toggleHtmlClass(newLocation, oldLocation) {
             if (this.classNamePrefix) {
-                document.documentElement.classList.remove(this.classNamePrefix + oldLocation);
-                document.documentElement.classList.add(this.classNamePrefix + newLocation);
+                this.$doc
+                    .removeClass(this.classNamePrefix + oldLocation)
+                    .addClass(this.classNamePrefix + newLocation);
             }
         }
 
         /**
-         * Reverse iterate over all known locations, last visited tag wins, or the first one appearing in story.
+         * Iterates over history detecting latest visited location, or defaults to the first one found in story.
          *
          * @returns {string}
          */
         detectLocation() {
-            for (let i = this.markers.length - 1; i > -1; i--) {
-                const marker = this.markers[i];
-                const tagName = `${LocationFinder.nameToken}${marker.name}`;
-                const tagOrder = `${LocationFinder.orderToken}${marker.order}`;
-                if (visitedTags(tagName, tagOrder)) {
-                    return marker.name;
+            let counter = State.length - 1;
+            while (counter > 0) {
+                const moment = State.index(counter);
+                const passage = Story.get(moment.title);
+                for (const tag of passage.tags) {
+                    if (tag.startsWith(LocationFinder.nameToken)) {
+                        return LocationFinder.getLocationNameFromTag(tag);
+                    }
                 }
+                counter--;
             }
 
             return this.markers[0].name;
         }
 
         /**
-         * @param {String[]} tags
-         * @returns {{name: string, order: number | undefined}}
+         * @param {string[]} tags
+         * @returns {string}
          */
         static extractLocations(tags) {
             const locationTag = tags.find(tag => tag.startsWith(LocationFinder.nameToken));
 
             if (locationTag) {
-                const name = locationTag.replace(LocationFinder.nameToken, '');
-                const orderTag = tags.find(tag => tag.startsWith(LocationFinder.orderToken));
-
-                if (Config.debug && !orderTag) {
-                    console.warn(`Location "${name}" doesn't have explicit order.`);
-                }
-
-                return {
-                    name,
-                    order: parseInt(orderTag.replace(LocationFinder.orderToken, ''), 10) || 0,
-                };
+                return LocationFinder.getLocationNameFromTag(locationTag);
             }
+        }
+
+        /**
+         * @param {string} tag
+         * @return {string}
+         */
+        static getLocationNameFromTag(tag) {
+            return tag.substring(LocationFinder.nameToken.length);
         }
 
         static get nameToken() {
             return 'locationName-';
         }
-
-        static get orderToken() {
-            return 'locationOrder-';
-        }
     }
 
-    window.scUtils = Object.assign(
-        window.scUtils || {},
-        {
-            LocationFinder,
-        }
-    );
+    window.LocationFinder = LocationFinder;
 }());
