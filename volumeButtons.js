@@ -3,14 +3,14 @@
 
     // requires menuButton.js
 
-    /* globals scUtils, l10nStrings */
+    /* globals scUtils, l10nStrings, storage */
 
     function saveVolume(value) {
-        localStorage.setItem('masterVolume', value);
+        storage.setItem('masterVolume', value);
     }
 
     function loadVolume() {
-        const loaded = localStorage.getItem('masterVolume') || '1.0';
+        const loaded = storage.getItem('masterVolume') || '1.0';
         let value = parseFloat(loaded);
 
         if (isNaN(value)) {
@@ -25,11 +25,11 @@
     }
 
     function saveMute(value) {
-        localStorage.setItem('masterMute', value);
+        storage.set('masterMute', value);
     }
 
     function loadMute() {
-        const loaded = localStorage.getItem('masterMute') || 'false';
+        const loaded = storage.get('masterMute') || 'false';
 
         return loaded === 'true';
     }

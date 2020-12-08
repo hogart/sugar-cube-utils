@@ -3,16 +3,16 @@
 
     // requires menuButton.js
 
-    /* globals scUtils, l10nStrings */
+    /* globals scUtils, l10nStrings, storage */
 
     const $passages = document.querySelector('#passages');
 
     function saveFontSize(value) {
-        localStorage.setItem('fontSize', value);
+        storage.set('fontSize', value);
     }
 
     function loadFontSize() {
-        const loaded = localStorage.getItem('fontSize') || '100';
+        const loaded = storage.get('fontSize') || '100';
         let value = parseInt(loaded);
 
         if (isNaN(value)) {

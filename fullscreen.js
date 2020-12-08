@@ -54,27 +54,27 @@
     const {style} = scUtils.createHandlerButton(l10nStrings.uiFullScreen || 'Full screen', '', 'fullscreen', handler);
     const styleId = style.attr('id').replace(/-style$/, '');
     const styles = `
-#menu-core #${styleId} a::before {
-    content: '\\e830\\00a0';
-}
+        #menu-core #${styleId} a::before {
+            content: '\\e830\\00a0';
+        }
 
-html:${selector} {
-    height: 100%;
-}
+        html:${selector} {
+            height: 100%;
+        }
 
-:${selector} body {
-    height: calc(100% - 2.5em);
-    padding-top: 2.5em;
-}
+        :${selector} body {
+            height: calc(100% - 2.5em);
+            padding-top: 2.5em;
+        }
 
-:${selector} #story {
-    margin-top: 0;
-}
+        :${selector} #story {
+            margin-top: 0;
+        }
 
-:${selector} #menu-core #${styleId} a::before {
-    content: '\\e831\\00a0';
-}
-`;
+        :${selector} #menu-core #${styleId} a::before {
+            content: '\\e831\\00a0';
+        }
+    `;
 
     style.text(styles);
 }());

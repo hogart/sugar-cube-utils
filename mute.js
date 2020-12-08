@@ -6,12 +6,12 @@
 
     'use strict';
 
-    /* globals l10nStrings, scUtils */
+    /* globals l10nStrings, scUtils, storage */
 
-    let mute = localStorage.getItem('mute') === 'true';
+    let mute = storage.get('mute') === 'true';
 
     function renderMute() {
-        localStorage.setItem('mute', mute.toString());
+        storage.get('mute', mute.toString());
         document.documentElement.classList.toggle('mute', mute);
         jQuery.wiki(`<<masteraudio ${mute ? 'mute' : 'unmute'}>>`); // use engine API instead of undocumented access
     }
