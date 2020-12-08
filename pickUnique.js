@@ -10,6 +10,10 @@
     }
 
     function _extendArray(arr, value = null) {
+        if (!Array.isArray(arr)) {
+            throw new TypeError('Not an array');
+        }
+
         if (value === null) {
             value = random(arr.length - 1);
         }
