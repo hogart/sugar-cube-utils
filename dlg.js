@@ -1,4 +1,4 @@
-(function dlgMacros() {
+(function dlgMacros(macroOptions) {
     'use strict';
     /* globals version, Macro */
 
@@ -19,26 +19,34 @@
         return typeof arg === 'number';
     }
 
+    function getLevels(ctx) {
+        let level = 0;
+        const parentLevel = ctx.contextSelect((context) => context.name === 'level');
+        if (parentLevel) {
+            level = parseInt(parentLevel.args[0], 10);
+        }
+
+        let targetLevel = level + 1;
+        if (isNumber(ctx.args[1])) {
+            targetLevel = parseInt(ctx.args[1], 10);
+        } else if (isNumber(ctx.args[2])) {
+            targetLevel = parseInt(ctx.args[2], 10);
+        }
+
+        return {level, targetLevel};
+    }
+
     Macro.add('line', {
         tags: null,
         handler() {
-            let level = 0;
-            const parentLevel = this.contextSelect((context) => context.name === 'level');
-            if (parentLevel) {
-                level = parseInt(parentLevel.args[0], 10);
-            }
-
-            let targetLevel = level + 1;
-            if (isNumber(this.args[1])) {
-                targetLevel = parseInt(this.args[1], 10);
-            } else if (isNumber(this.args[2])) {
-                targetLevel = parseInt(this.args[2], 10);
-            }
+            const {level, targetLevel} = getLevels(this);
 
             let dlgId = 'dlg';
             const parentDlg = this.contextSelect((context) => context.name === 'dlg');
-            if (parentDlg && parentDlg.args[0]) {
-                dlgId = parentDlg.args[0];
+            const dlgArgs = parentDlg.args;
+
+            if (parentDlg && dlgArgs[0]) {
+                dlgId = dlgArgs[0];
             }
 
             let bullet = '';
@@ -55,9 +63,15 @@
                 line = this.args[0];
             }
 
-            const link = jQuery(`<a class="dlg-line">${bullet ? bullet + ' ' : ''}${line}</a>`);
+            const doTrim = !!macroOptions.trim;
+            const doPrepend = !!macroOptions.prepend;
+
+            const link = jQuery('<a class="dlg-line"></a>');
+            link.wiki(`${bullet ? bullet + ' ' : ''}${line}`);
             link.ariaClick(() => {
-                jQuery('#' + dlgId).wiki(this.payload[0].contents);
+                const response = doTrim ? this.payload[0].contents.trim() : this.payload[0].contents;
+                const result = doPrepend ? (`${line}\n${response}`) : response;
+                jQuery('#' + dlgId).wiki((level > 0 ? '\n' : '') + result);
 
                 const dlgStage = jQuery('#' + dlgId + '-stage');
                 dlgStage.find('.dlg-level-' + level).attr('hidden', 'hidden');
@@ -106,4 +120,4 @@
                 .append(dlgStage);
         },
     });
-}());
+}({trim: false, prepend: false}));

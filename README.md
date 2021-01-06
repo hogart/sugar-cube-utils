@@ -50,12 +50,16 @@ Most macros include built-in styles created by JS, so you can copy-paste one fil
 
 #### `<<dlg>>`
 `<<dlg>>` accepts 3 optional arguments:
-* dialogue id (any unique string): needed only if there's several dialogues in the same passage.
+* dialogue id (any unique string): needed only if there are several dialogues in the same passage.
 * starting level (number): if you need to skip introductions. Defaults to 0.
 * prefix (any string): will be prepended to each line. Empty string by default.
 
+Additionally, the macro behavior can be fine tuned by changing the options passed into the script: `}({trim: false, append: false}));`.
+Setting `trim` to `true` will force `<<line>>` to trim it's contents before displaying (no unneeded line breaks).
+Setting `prepend` to `true` will make `<<line>>` to prepend this line's visible part to the contents before displaying. There will be linebreak between the visible part and the contents.
+
 #### `<<level>>`
-`<<level>>` accepts single numeric argument: it's level.
+`<<level>>` accepts single numeric mandatory argument: it's level.
 
 #### `<<line>>`
 `<<line` accepts up to 3 arguments:
