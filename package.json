@@ -14,7 +14,7 @@
     "@types/jquery": "^3.5.0",
     "babel-eslint": "^10.1.0",
     "babel-preset-minify": "^0.5.1",
-    "eslint": "^7.3.1"
+    "eslint": "^7.18.0"
   },
   "browserslist": [
     "> 1%, last 3 versions, last 10 Chrome versions, last 10 Firefox versions, IE >= 9, Opera >= 12"
