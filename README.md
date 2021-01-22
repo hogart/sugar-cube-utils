@@ -1,6 +1,6 @@
 # Collection of [SugarCube 2](http://www.motoslave.net/sugarcube/2/) macros and goodies
 
-Please note that code will not work in older browsers (Internet Explorer, pre-Chomium Edge, etc) as-is. See [Using the code](#using-the-code) section below.
+Please note that code will not work in older browsers (Internet Explorer, pre-Chromium Edge, etc) as-is. See [Using the code](#using-the-code) section below.
 
 If you use [Twee 3 Language Tools](https://github.com/cyrusfirheir/twee3-language-tools) VS Code extension, you might find [`scUtils.twee-config.yaml`](./scUtils.twee-config.yaml) useful, as it contains declarations of all macros in this repo.
 
@@ -13,7 +13,7 @@ Most macros include built-in styles created by JS, so you can copy-paste one fil
 
 **NB: `<<abbr>>` is deprecated, use `<<more>>`.**
 
-`<<more>>` shows tooltip — on mouse hover on desktop and on tap on touch screen. It tries to contain tooltip entirely on the screen. `<<more>>` can include SugarCube code inside of it, but not in tooltip content.
+`<<more>>` shows tooltip — on mouse hover on desktop and on tap on touch screen. It tries to contain the tooltip entirely on the screen. `<<more>>` can include SugarCube code inside it, but not in tooltip content.
 
 ### [`<<dlg>>`](./dlg.js), `<<level>>` and `<<line>>`.
 
@@ -54,8 +54,8 @@ Most macros include built-in styles created by JS, so you can copy-paste one fil
 * starting level (number): if you need to skip introductions. Defaults to 0.
 * prefix (any string): will be prepended to each line. Empty string by default.
 
-Additionally, the macro behavior can be fine tuned by changing the options passed into the script: `}({trim: false, append: false}));`.
-Setting `trim` to `true` will force `<<line>>` to trim it's contents before displaying (no unneeded line breaks).
+Additionally, the macro behavior can be fine-tuned by changing the options passed into the script: `}({trim: false, append: false}));`.
+Setting `trim` to `true` will force `<<line>>` to trim its contents before displaying (no unneeded line breaks).
 Setting `prepend` to `true` will make `<<line>>` to prepend this line's visible part to the contents before displaying. There will be linebreak between the visible part and the contents.
 
 #### `<<level>>`
@@ -147,7 +147,7 @@ Clean, squeky clean, operating room clean.
 ### [`<<iconcheck>>`](./iconcheckbox.js)
 
 Default checkboxes can look ugly and not fit into overall visual style. So `<<iconcheck>>` displays neat switch icon in the same style as built-in SugarCube controls.
-Simplest form is `<<iconcheck $isSomething>>toggle value<</iconcheck>>`, this will display same label no matter what the value is.
+The simplest form is `<<iconcheck $isSomething>>toggle value<</iconcheck>>`, this will display same label no matter what the value is.
 Most flexible form looks like this and allows you to run some callback when value changes:
 ```
 <<set _handler = function (value) { alert(value ? 'You turned it on!' : 'You turned it off!') }
@@ -222,6 +222,19 @@ Some browsers require user interaction to vibrate, so you'll probably need to wr
 
 Most goodies/utils put functions into `window.scUtils` "namespace". Things that create buttons in UIBar rely on `menuButton.js`, so include it in your script before.
 
+### Achievements
+
+It's not that difficult to create an achievement system, but good achievement system includes many moving parts.
+scUtils' [`achievements`](./achievements) is capable:
+
+* to provide achievements with title, description, unlock date and flexible checks;
+* to have hidden achievements
+* to store unlocked achievement between playthroughs (not portable between devices)
+* to display achievements as a floating notification in the right bottom corner of player's screen
+* to add a button to the sidebar, which displays a dialog containing list of achievements
+
+Take a look inside the [`achievements/story.twee`](./achievements/story.twee) to learn how to integrate it in your game.
+
 
 ### [`menuButton.js`](./menuButton.js)
 
@@ -243,7 +256,7 @@ Useful for emulating loosing conscience, teleportation, extended periods of time
 
 ### [`fontSize.js`](./fontSize.js) (relies on menuButton.js)
 
-Exposes `scUtils.createFontSizeBtn` function. When called this function creates buttons in sidebar to increase/decrease font size. To change button label, assign value to correspondent l10n key:`l10nStrings.uiFontSize = 'Zoom in/out'` (defaults to 'Font size').
+Exposes `scUtils.createFontSizeBtn` function. When called, this function creates buttons in the sidebar to increase/decrease font size. To change button label, assign value to correspondent l10n key:`l10nStrings.uiFontSize = 'Zoom in/out'` (defaults to 'Font size').
 
 ### [`fullscreen.js`](./fullscreen.js) (relies on menuButton.js)
 
@@ -251,7 +264,7 @@ Adds "Full screen" button switch to UIBar (if browser supports this API). Suppos
 
 ### [`LocationFinder.js`](./LocationFinder.js)
 
-Game can consist of different locations. Suppose you want to change some styles and switch background music depending on whether player is in dungeon, forest or desert. Using vanilla SugarCube you'll need to assign designated tag to every passage in each location (and 100 passages is not a very big game). Now add music to equation and remember that player can save/load and use checkpoints.
+Game can consist of different locations. Suppose you want to change some styles and switch background music depending on whether player is in a dungeon, forest or desert. Using vanilla SugarCube you'll need to assign designated tag to every passage in each location (and 100 passages is not a very big game). Now add music to equation and remember that player can save/load and use checkpoints.
 
 `scUtils.LocationFinder` tries to solve this issue.
 0. Tag passages where player enters new locations with `locationName-desert`, `locationName-forest`, and so on.
@@ -280,7 +293,7 @@ const foodPicker = scUtils.createUniquePicker(['Apple pie', 'Pizza', 'Ice cream'
 foodPicker(); // function which returns non-repeating results
 ```
 
-Take a passage, split it into lines and use this lines to produce random non-repeating results. Useful if you have huge list or the list has long lines.
+Take a passage, split it into lines and use this lines to produce random non-repeating results. Useful if you have huge list, or the list has long lines.
 
 ```
 ::Script [script]
@@ -325,7 +338,7 @@ If you need to load heave scripts, styles, images or other assets, it may be goo
 
 Quest tracker, exposes `window.qbn` and `window.scUtils.qbn` objects.
 
-Suppose player should visit any 5 rooms out of 7 in building before he can proceed with story, or examine any3 evidences out of 5 before character comes to conclusion. If character can visit rooms (and return to where they were before) or examine clues in random order, you'll need 7 (or 5) boolean variables and unmaintainable `if()` condition to allow that. You can put some flags into array, but this requires filtering out non-unique values. `qbn` helps with all that:
+Suppose player should visit any 5 rooms out of 7 in building before he can proceed with the story, or examine any 3 evidences out of 5 before character comes to conclusion. If character can visit rooms (and return to where they were before) or examine clues in random order, you'll need 7 (or 5) boolean variables and unmaintainable `if()` condition to allow that. You can put some flags into array, but this requires filtering out non-unique values. `qbn` helps with all that:
 ```js
 qbn.set('house', 'ground floor');
 qbn.set('house', ['basement', 'kitchen']);
@@ -355,12 +368,12 @@ Code in the repo uses pretty new JS language features and as-is will work only i
 node bin/build.js --es6 abbr about faint genderswitch
 ```
 
-This will create `./bundle.js` combining transpiled `abbr.js`, `about.js` `faint.js` and `genderswitch.js` files. Additionally you can produce minified version adding `--compress` option:
+This will create `./bundle.js` combining transpiled `abbr.js`, `about.js` `faint.js` and `genderswitch.js` files. Additionally, you can produce a minified version adding `--compress` option:
 ```sh
 node bin/build.js --es6 --compress abbr about faint genderswitch
 ```
 
-By default code will be transpiled to support same browsers as SugarCube. If you don't have node.js installed, you can transpile code [online](http://babeljs.io/repl/).
+By default, code will be transpiled to support same browsers as SugarCube. If you don't have node.js installed, you can transpile code [online](http://babeljs.io/repl/).
 
 ## MIT License
 Copyright 2017-2020 Konstantin Kitmanov.
