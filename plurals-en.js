@@ -1,5 +1,5 @@
 (function pluralsEn() {
-    // See plurals-independent.ru for Russian
+    // See plurals-ru.js for Russian
     'use strict';
 
     /**
