@@ -50,7 +50,7 @@
             }
 
             let bullet = '';
-            if (this.args.length === 2 && !isNumber(this.args[1])) {
+            if (this.args.length >= 2 && !isNumber(this.args[1])) {
                 bullet = this.args[1];
             } else if (parentDlg && parentDlg.args.length === 3) {
                 bullet = parentDlg.args[2];
@@ -67,7 +67,7 @@
             const doPrepend = !!macroOptions.prepend;
 
             const link = jQuery('<a class="dlg-line"></a>');
-            link.wiki(`${bullet ? bullet + ' ' : ''}${line}`);
+            link.wiki(`${bullet ? ('<span class="dlg-line-bullet">' + bullet + ' </span>') : ''}${line}`);
             link.ariaClick(() => {
                 const response = doTrim ? this.payload[0].contents.trim() : this.payload[0].contents;
                 const result = doPrepend ? (`${line}\n${response}`) : response;
