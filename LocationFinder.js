@@ -26,6 +26,7 @@
             this.latestLocation = this.detectLocation();
 
             this.$doc = jQuery(document);
+            this.$html = jQuery(document.documentElement);
 
             this.onChange = onChange;
             this.classNamePrefix = classNamePrefix;
@@ -72,7 +73,7 @@
 
         _toggleHtmlClass(newLocation, oldLocation) {
             if (this.classNamePrefix) {
-                this.$doc
+                this.$html
                     .removeClass(this.classNamePrefix + oldLocation)
                     .addClass(this.classNamePrefix + newLocation);
             }
@@ -96,7 +97,7 @@
                 counter--;
             }
 
-            return this.markers[0].name;
+            return this.markers[0];
         }
 
         /**
@@ -124,5 +125,10 @@
         }
     }
 
-    window.LocationFinder = LocationFinder;
+    window.scUtils = Object.assign(
+        window.scUtils || {},
+        {
+            LocationFinder,
+        }
+    );
 }());
