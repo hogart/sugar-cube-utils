@@ -125,7 +125,7 @@
             `;
 
             if (overview.hidden > 0) {
-                const hiddenAchievements = pluralize(overview.hidden);
+                const hiddenAchievements = pluralize(overview.hidden, overview.unlocked.length);
                 html += `<p>${hiddenAchievements}</p>`;
             }
 
