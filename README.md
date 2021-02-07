@@ -351,6 +351,25 @@ qbn.inc('madness', 12); // time to eat your crew yet?
 qbn.dec('madness', 5); // qbn.length('madness') === 7
 ```
 
+### [`skipIntro.js`](./skipIntro.js)
+
+Simple utility that inserts "Skip intro" link into certain passages starting from 2nd playthrough.
+```js
+scUtils.skipIntro(
+    'My first action passage', // passage to jump to
+    'Skip boring stuff', // label for the link, defaults to l10nStrings.uiSkipIntro or 'Skip intro'
+    ['Start'], // passages **names** which shouldn't have this link (e.g. splash screen)
+    ['no-skip-intro'], // passages **tags** which shouldn't have this link
+)
+```
+Comes with predefined styles, which can be easily overridden:
+```css
+p.skipIntro {
+    text-align: center;
+    font-size: 300%;
+}
+```
+
 ### [`volumeButtons.js`](./volumeButtons.js) (relies on menuButton.js) {#volume-buttons}
 
 Exposes `scUtils.createVolumeButtons` function, which adds volume control buttons to the UI bar. To change button label, assign value to correspondent l10n key:`l10nStrings.uiVolumeControl = 'Level of AWESOME'`.
