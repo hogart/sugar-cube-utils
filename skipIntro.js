@@ -1,7 +1,7 @@
 (function skipIntroFactory() {
     'use strict';
 
-    /* globals visited, storage, l10nStrings */
+    /* globals visited, storage, l10nStrings, Engine */
 
     function addStyles() {
         const styles = `
@@ -17,8 +17,9 @@
     }
 
     function prepareLink(firstNonIntroPassage, label) {
-        const $p = jQuery('<p class="skipIntro"></p>');
-        $p.wiki(`[[${label}->${firstNonIntroPassage}]]`);
+        const $p = jQuery(`<p class="skipIntro"><a class="link-internal" tabindex="0">${label}</a></p>`);
+
+        $p.on('click', 'a', () => Engine.play(firstNonIntroPassage));
 
         return $p;
     }
@@ -29,13 +30,6 @@
         };
     }
 
-    /**
-     *
-     * @param {string} firstNonIntroPassage
-     * @param {string} label
-     * @param {string[]} skipPassages
-     * @param {string[]} skipTags
-     */
     function skipIntro(firstNonIntroPassage, label = l10nStrings.uiSkipIntro || 'Skip intro', skipPassages = [], skipTags = []) {
         const $doc = jQuery(document);
         const skipPassageDetector = skipPassageFactory(skipPassages, skipTags);
