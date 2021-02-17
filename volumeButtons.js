@@ -6,11 +6,11 @@
     /* globals scUtils, l10nStrings, storage */
 
     function saveVolume(value) {
-        storage.setItem('masterVolume', value);
+        storage.set('masterVolume', value);
     }
 
     function loadVolume() {
-        const loaded = storage.getItem('masterVolume') || '1.0';
+        const loaded = storage.get('masterVolume') || '1.0';
         let value = parseFloat(loaded);
 
         if (isNaN(value)) {
