@@ -2,7 +2,7 @@
     'use strict';
     /* globals version, Macro, visited, Story, Config, Wikifier, Engine, State */
 
-    const macroName = 'linkif';
+    const macroName = 'linkonce';
 
     if (!version || !version.title || 'SugarCube' !== version.title || !version.major || version.major < 2) {
         throw new Error(`<<${macroName}>> macro requires SugarCube 2.0 or greater, aborting load`);
